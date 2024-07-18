@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Bienvenido{% endblock %}</title>
+</head>
+<body>
+    <header>
+        {% if not current_user.is_authenticated %}
+        <h1>Bienvenido a la Librería</h1>
+        <nav>
+            <ul>
+                <li><a href="{{ url_for('routes.inicio') }}">Inicio</a></li>
+                <li><a href="{{ url_for('routes.login') }}">Iniciar Sesión</a></li>
+                <li><a href="{{ url_for('routes.register') }}">Registrarse</a></li>
+                <li><a href="{{ url_for('routes.anonymous') }}">Iniciar como Usuario Anónimo</a></li>
+            </ul>
+        </nav>
+        {% else %}
+
+        {% endif %}
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2024 Librería</p>
+    </footer>
+</body>
+</html>

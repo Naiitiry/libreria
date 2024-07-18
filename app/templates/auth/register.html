@@ -1,0 +1,42 @@
+{% extends "form_template.html" %}
+
+{% block content %}
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+        {% block title %}<h2>Registrarse</h2>{% endblock %}
+    <form method="POST" action="{{ url_for('routes.register') }}" novalidate>
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.usuario.label }}<br>
+            {{ form.usuario(size=32) }}
+        </p>
+        <p>
+            {{ form.email.label }}<br>
+            {{ form.email(size=32) }}
+        </p>
+        <p>
+            {{ form.nombre.label }}<br>
+            {{ form.nombre(size=32) }}
+        </p>
+        <p>
+            {{ form.apellido.label }}<br>
+            {{ form.apellido(size=32) }}
+        </p>
+        <p>
+            {{ form.password.label }}<br>
+            {{ form.password(size=32) }}
+        </p>
+        <p>
+            {{ form.confirm_password.label }}<br>
+            {{ form.confirm_password(size=32) }}<br>
+        </p>
+        <p>{{ form.enviar() }}</p>
+    </form>
+    <p>Ya tienes una cuenta <a href="{{ url_for('routes.login') }}">Logeate aquí</a>.</p>
+    <p>Iniciar sesión como anónimo: <a href="{{ url_for('routes.anonymous') }}">Aquí</a></p>
+{% endblock %}

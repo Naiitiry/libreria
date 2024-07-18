@@ -1,0 +1,45 @@
+{% extends "base_template.html" %}
+
+    {% block title %}Inicio{% endblock %}
+
+    {% block content %}
+        {% if current_user.is_authenticated and not current_user.is_anonymous %}
+        <div>
+            <h2>Bienvenido, {{ current_user.usuario }}!</h2>
+            <h3>Libros</h3>
+            <h4><a href="{{ url_for('routes.nuevo_libro') }}">Agregar nueva entrada</a></h4>
+            <ul>
+                {% for libro in libros %}
+                    <li>{{ libro.titulo }}</li>
+                {% endfor %}
+            </ul>
+            <h3>Autores</h3>
+            <h4><a href="{{ url_for('routes.nuevo_autor') }}">Agregar nuevo autor</a></h4>
+            <ul>
+                {% for autor in autores %}
+                    <li>{{ autor.nombre }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <a href="{{ url_for('routes.logout') }}">Cerrar sesión</a>
+        {% else %}
+        <div>
+            <h2>Bienvenido, {{ current_user.usuario }}!</h2>
+            <h3>Libros</h3>
+            <h4><a href="{{ url_for('routes.nuevo_libro') }}">Agregar nueva entrada</a></h4>
+            <ul>
+                {% for libro in libros %}
+                    <li>{{ libro.titulo }}</li>
+                {% endfor %}
+            </ul>
+            <h3>Autores</h3>
+            <h4><a href="{{ url_for('routes.nuevo_autor') }}">Agregar nuevo autor</a></h4>
+            <ul>
+                {% for autor in autores %}
+                    <li>{{ autor.nombre }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <a href="{{ url_for('routes.logout') }}">Cerrar sesión</a>
+        {% endif %}
+    {% endblock %}

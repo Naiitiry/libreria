@@ -1,0 +1,31 @@
+{% extends "form_template.html" %}
+
+{% block content %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }}"style="color: red;">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    {% block title %}<h2>Iniciar sesión</h2>{% endblock %}
+<div>
+    <form action="{{ url_for('routes.login') }}" method="POST" novalidate>
+        {{ form.hidden_tag() }}
+        <div>
+            {{ form.usuario.label }}<br>
+            {{ form.usuario(size=32) }}<br>
+        </div>
+        <div>
+            {{ form.password.label }}<br>
+            {{ form.password(size=32) }}<br>
+        </div>
+        <div>
+            {{ form.recuerdame() }} {{ form.recuerdame.label }}
+        </div>
+        <div>{{ form.enviar() }}</div>
+    </form>
+    <div>Don't have an account? <a href="{{ url_for('routes.register') }}">Register here</a>.</div>
+    <p>Iniciar sesión como anónimo: <a href="{{ url_for('routes.anonymous') }}">Aquí</a></p>
+</div>
+{% endblock %}

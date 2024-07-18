@@ -1,0 +1,59 @@
+{% extends "form_template.html" %}
+{% block title %}
+    {% if libroform.titulo.data %}
+        {{ libroform.titulo.data }}
+    {% else %}
+        <h2>Nueva entrada</h2>
+    {% endif %}
+{% endblock %}
+{% block content %}
+{% if current_user.is_authenticated and not current_user.is_anonymous %}
+    <form action="{{ url_for('routes.nuevo_libro') }}" method="POST" novalidate>
+        {{ libroform.hidden_tag() }}
+        <div>
+            {{ libroform.titulo.label }}
+            {{ libroform.titulo(size=128) }}<br>
+            {% for error in libroform.titulo.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div>
+            {{ libroform.genero.label }}
+            {{ libroform.genero(size=128) }}<br>
+            {% for error in libroform.genero.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div>
+            {{ libroform.precio.label }}
+            {{ libroform.precio }}<br>
+            {% for error in libroform.precio.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div>
+            {{ libroform.cantidad.label }}
+            {{ libroform.cantidad }}<br>
+            {% for error in libroform.cantidad.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div>
+            {{ libroform.autor_id.label }}
+            {{ libroform.autor_id }}<br>
+            {% for error in libroform.autor_id.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div>
+            {{ libroform.enviar() }}
+        </div>
+        <p>Volver al <a href="{{ url_for('routes.index') }}"><b>Inicio</b></a></p>
+    </form>
+    {% else %}
+    <p>
+        Acceso denegado, para poder agregar un nuevo libro debe estar correctamente 
+        <a href="{{ url_for('routes.register') }}"><b>registrado</b></a> ó <a href="{{ url_for('routes.login') }}"><b>iniciar sesión</b></a>
+    </p>
+{% endif %}
+{% endblock %}

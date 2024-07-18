@@ -1,0 +1,37 @@
+{% extends "form_template.html" %}
+{% block title %}
+    {% if form.nombre.data %}
+        {{ form.nombre.data }}
+    {% else %}
+        <h2>Nueva entrada</h2>
+    {% endif %}
+{% endblock %}
+{% block content %}
+{% if current_user.is_authenticated and not current_user.is_anonymous %}
+    <form action="{{ url_for('routes.nuevo_autor') }}" method="POST" novalidate>
+        {{ form.hidden_tag() }}
+        <div>
+            {{ form.nombre.label }}
+            {{ form.nombre(size=128) }}<br>
+            {% for error in form.nombre.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.apellido.label }}
+            {{ form.apellido(size=128) }}<br>
+            {% for error in form.apellido.errors %}
+            <span style="color: red;">{{ error }}</span>
+            {% endfor %}
+        </div>
+        <div>
+            {{ form.submit() }}
+        </div>
+    </form>
+    {% else %}
+    <p>
+        Acceso denegado, para poder agregar un nuevo libro debe estar correctamente 
+        <a href="{{ url_for('routes.register') }}"><b>registrado</b></a> ó <a href="{{ url_for('routes.login') }}"><b>iniciar sesión</b></a>
+    </p>
+{% endif %}
+{% endblock %}
