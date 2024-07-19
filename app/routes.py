@@ -6,8 +6,10 @@ from .models import Libro,Autor, db, AnonymousUser,User
 
 routes = Blueprint('routes', __name__)
 
+# ******************************************************************
+# ************************ RUTAS LOGIN *****************************
+# ******************************************************************
 
-# Ruta de Inicio
 @routes.route('/login_inicio')
 def inicio():
     if not current_user.is_authenticated:   
@@ -79,7 +81,7 @@ def anonymous():
 
 
 # ******************************************************************
-# ********************** DENTRO DE LA APP **************************
+# ************************ CRUD LIBROS *****************************
 # ******************************************************************
 
 
@@ -128,15 +130,33 @@ def detalle_libro(id):
 @routes.route('/editar_libro/<int:id>',methods=['GET','POST'])
 @login_required
 def editar_libro():
-    pass
+    libro = Libro.query.get_or_404(id)
+    libroForm = LibroForm(obj=libro)
+    if current_user.is_authenticated and not current_user.is_anonymous:
+        if libroForm.validate_on_submit():
+            libro.titulo = libroForm.titulo.data
+            libro.genero = libroForm.genero.data
+            libro.precio = libroForm.precio.data
+            libro.cantidad = libroForm.cantidad.data
+            libro.autor_id = libroForm.autor_id.data
+            db.session.add(libro)
+            db.session.commit()
+            flash('Libro actualizado exitosamente!','success')
+            return redirect(url_for('routes.inicio_libros'))
+    return render_template('nuevo_libro.html',libroform=libroForm)
 
 @routes.route('/eliminar_libro/<int:id>',methods=['GET','POST'])
 @login_required
 def eliminar_libro():
-    pass
+    libro = Libro.query.get_or_404(id)
+    db.session.delete(libro)
+    db.session.commit()
+    flash('Libro eliminado exitosamente!','success')
+    return redirect(url_for('routes.inicio_libros'))
 
-# CRUD de Autores
-# Inicio
+# ******************************************************************
+# ************************ CRUD LIBROS *****************************
+# ******************************************************************
 
 @routes.route('/autores')
 @login_required
