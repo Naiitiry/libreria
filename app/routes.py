@@ -1,7 +1,6 @@
 from flask import render_template, redirect, url_for, flash, Blueprint,request
 from flask_login import login_required, current_user, login_user, logout_user
 from .forms import LibroForm, AutorForm, SearchForm,LoginForm, RegisterForm
-
 from .models import Libro,Autor, db, AnonymousUser,User
 
 routes = Blueprint('routes', __name__)
@@ -32,7 +31,6 @@ def login():
             flash('Inicio de sesión fallida. Por favor revisa tus credenciales.','warning')
     return render_template('auth/login.html',form=form)
 
-
 # Ruta de Registro
 @routes.route('/register',methods=['GET','POST'])
 def register():
@@ -58,7 +56,6 @@ def register():
             return redirect(url_for('routes.login'))
     return render_template('auth/register.html',form=form)
 
-
 # Ruta de Cierre de Sesion
 @routes.route('/logout')
 @login_required
@@ -70,7 +67,7 @@ def logout():
 # Ruta de Ingreso como Usuario Anónimo
 @routes.route('/anonymous')
 def anonymous():
-    anonymous_user = User.query.filter_by(usuario='Anonimo').first()
+    anonymous_user = User.query.filter_by(usuario='anonimo').first()
     if anonymous_user:
         login_user(anonymous_user)
         flash('Has ingresado como usuario anónimo.','info')
@@ -79,11 +76,9 @@ def anonymous():
         flash('No se encuentra el usuario anónimo, por favor contacte con el administrador','warning')
         return redirect(url_for('routes.inicio'))
 
-
 # ******************************************************************
-# ************************ CRUD LIBROS *****************************
+# *************************** INDEX ********************************
 # ******************************************************************
-
 
 @routes.route('/')
 @login_required
@@ -93,9 +88,14 @@ def index():
     autores = Autor.query.order_by(Autor.nombre).limit(10).all()
     return render_template('index.html',libros=libros,autores=autores)
 
-# CRUD de libros
-# Inicio
-
+# ******************************************************************
+# ************************ CRUD LIBROS *****************************
+# ******************************************************************
+'''
+En este apartado se muestra el CRUD de libros, así como un índice
+para los libros, con el endpoint /libros y otro igual pero para autores
+con el endpoint /autores
+'''
 @routes.route('/libros',methods=['GET','POST'])
 @login_required
 def inicio_libro():
@@ -155,7 +155,7 @@ def eliminar_libro():
     return redirect(url_for('routes.inicio_libros'))
 
 # ******************************************************************
-# ************************ CRUD LIBROS *****************************
+# ************************ CRUD AUTORES ****************************
 # ******************************************************************
 
 @routes.route('/autores')
@@ -167,7 +167,46 @@ def inicio_autor():
 @routes.route('/nuevo_autor',methods=['GET','POST'])
 @login_required
 def nuevo_autor():
+    autor = Autor()
+    autorForm = AutorForm(obj=autor)
     if current_user.is_authenticated and not current_user.is_anonymous:
-        flash('Hola')
-    else:
-        flash('No podes acceder')
+        if autorForm.validate_on_submit():
+            autor.nombre = autorForm.nombre.data
+            autor.apellido = autorForm.apellido.data
+            autor.libros = autorForm.libros.data
+            db.session.add(autor)
+            db.session.commit()
+            flash('Autor guardado exitosamente!','success')
+            return redirect(url_for('routes.inicio_autor'))
+    return render_template('nuevo_autor.html',autorform=autorForm)
+
+@routes.route('/detalle_autor/<int:id>',methods=['GET'])
+@login_required
+def detalle_autor(id):
+    autor = Autor.query.get_or_404
+    return render_template('detalle_autor.html',autor=autor)
+
+@routes.route('/editar_autor/<int:id>',methods=['GET','POST'])
+@login_required
+def editar_autor():
+    autor = Autor.query.get_or_404(id)
+    autorForm = AutorForm(obj=autor)
+    if current_user.is_authenticated and not current_user.is_anonymous:
+        if autorForm.validate_on_submit():
+            autor.nombre = autorForm.nombre.data
+            autor.apellido = autorForm.apellido.data
+            autor.libros = autorForm.libros.data
+            db.session.add(autor)
+            db.session.commit()
+            flash('Autor actualizado exitosamente!','success')
+            return redirect(url_for('routes.inicio_autor'))
+    return render_template('nuevo_autor.html',autorform=autorForm)
+
+@routes.route('/eliminar_autor/<int:id>',methods=['GET','POST'])
+@login_required
+def eliminar_autor():
+    autor = Autor.query.get_or_404(id)
+    db.session.delete(autor)
+    db.session.commit()
+    flash('Autor eliminado exitosamente!','success')
+    return redirect(url_for('routes.inicio_autor'))

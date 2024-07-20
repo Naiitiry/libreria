@@ -10,6 +10,7 @@ class User(db.Model,UserMixin):
     nombre = db.Column(db.String(50),nullable=False)
     apellido =  db.Column(db.String(50),nullable=False)
     email = db.Column(db.String(120),nullable=False)
+    is_admin = db.Column(db.Boolean, default=False)
 
     def __str__(self):
         return f'Usuario: {self.usuario}'

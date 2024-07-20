@@ -8,18 +8,24 @@
             <h2>Bienvenido, {{ current_user.usuario }}!</h2>
             <h3>Libros</h3>
             <h4><a href="{{ url_for('routes.nuevo_libro') }}">Agregar nueva entrada</a></h4>
-            <ul>
-                {% for libro in libros %}
-                    <li>{{ libro.titulo }}</li>
-                {% endfor %}
-            </ul>
+            <div>
+                <ul>
+                    {% for libro in libros %}
+                        <li>{{ libro.titulo }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <h4><a href="{{ url_for('routes.inicio_libro') }}">Todos los libros</a></h4>
             <h3>Autores</h3>
             <h4><a href="{{ url_for('routes.nuevo_autor') }}">Agregar nuevo autor</a></h4>
-            <ul>
-                {% for autor in autores %}
-                    <li>{{ autor.nombre }}</li>
-                {% endfor %}
-            </ul>
+            <div>
+                <ul>
+                    {% for autor in autores %}
+                        <li>{{ autor.nombre }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <h4><a href="{{ url_for('routes.inicio_autor') }}">Todos los autores</a></h4>
         </div>
         <a href="{{ url_for('routes.logout') }}">Cerrar sesión</a>
         {% else %}
