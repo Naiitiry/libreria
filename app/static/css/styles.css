@@ -1,0 +1,210 @@
+@keyframes hero-gradient-animation {
+    0% {
+        --x-0: 98%;
+        --c-0: hsla(358, 0%, 100%, 0.86);
+        --s-start-0: 2%;
+        --s-end-0: 78.72573401919361%;
+        --y-0: 98%;
+    }
+
+    100% {
+        --x-0: 2%;
+        --c-0: hsla(227, 0%, 100%, 0.86);
+        --s-start-0: 2%;
+        --s-end-0: 78.72573401919361%;
+        --y-0: 98%;
+    }
+}
+
+@property --x-0 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 98%
+}
+
+@property --c-0 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: hsla(358, 0%, 100%, 0.86)
+}
+
+@property --s-start-0 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 2%
+}
+
+@property --s-end-0 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 78.72573401919361%
+}
+
+@property --y-0 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 98%
+}
+
+@property --y-1 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 91%
+}
+
+@property --c-1 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: hsla(227, 85%, 73%, 0.42)
+}
+
+@property --s-start-1 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 2%
+}
+
+@property --s-end-1 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 78.72573401919361%
+}
+
+@property --x-1 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 98%
+}
+
+@property --s-start-2 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 2%
+}
+
+@property --s-end-2 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 61.288600779667334%
+}
+
+@property --x-2 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 14%
+}
+
+@property --c-2 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: hsla(266.02941176470586, 85%, 73%, 0.42)
+}
+
+@property --y-2 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 21%
+}
+
+@property --c-3 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: hsla(195, 85%, 73%, 0.42)
+}
+
+@property --y-3 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 79%
+}
+
+@property --s-start-3 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 2%
+}
+
+@property --s-end-3 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 61.288600779667334%
+}
+
+@property --x-3 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 52%
+}
+
+@property --c-4 {
+    syntax: '<color>';
+    inherits: false;
+    initial-value: hsla(48.00000000000001, 85%, 73%, 1)
+}
+
+@property --x-4 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 94%
+}
+
+@property --y-4 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 13%
+}
+
+@property --s-start-4 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 2%
+}
+
+@property --s-end-4 {
+    syntax: '<percentage>';
+    inherits: false;
+    initial-value: 61.288600779667334%
+}
+
+body {
+    --x-0: 98%;
+    --c-0: hsla(358, 0%, 100%, 0.86);
+    --y-0: 98%;
+    --y-1: 91%;
+    --c-1: hsla(227, 85%, 73%, 0.42);
+    --x-1: 98%;
+    --x-2: 14%;
+    --c-2: hsla(266.02941176470586, 85%, 73%, 0.42);
+    --y-2: 21%;
+    --c-3: hsla(195, 85%, 73%, 0.42);
+    --y-3: 79%;
+    --x-3: 52%;
+    --c-4: hsla(48.00000000000001, 85%, 73%, 1);
+    --x-4: 94%;
+    --y-4: 13%;
+    background-color: hsla(141, 14%, 16%, 1);
+    background-image: radial-gradient(circle at var(--x-0) var(--y-0), var(--c-0) var(--s-start-0), transparent var(--s-end-0)), radial-gradient(circle at var(--x-1) var(--y-1), var(--c-1) var(--s-start-1), transparent var(--s-end-1)), radial-gradient(circle at var(--x-2) var(--y-2), var(--c-2) var(--s-start-2), transparent var(--s-end-2)), radial-gradient(circle at var(--x-3) var(--y-3), var(--c-3) var(--s-start-3), transparent var(--s-end-3)), radial-gradient(circle at var(--x-4) var(--y-4), var(--c-4) var(--s-start-4), transparent var(--s-end-4));
+    animation: hero-gradient-animation 10s linear infinite alternate;
+    background-blend-mode: overlay, normal, normal, normal, normal;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+        "main"
+        "footer";
+    min-height: 100vh;
+    margin: 0;
+}
+main{
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+}
+footer{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+.container_bienvenida{
+    list-style: none;
+}

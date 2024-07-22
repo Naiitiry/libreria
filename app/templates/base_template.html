@@ -12,20 +12,18 @@
     <title>{% block title %}Bienvenido{% endblock %}</title>
 </head>
 <body>
-    <header>
+    <main>
         {% if not current_user.is_authenticated %}
-        <h1>Bienvenido a la Librería</h1>
-        <nav>
+        <div class="container_bienvenida">
+            <h1>Bienvenido a la Librería</h1>
             <ul>
                 <li><a href="{{ url_for('routes.inicio') }}">Inicio</a></li>
                 <li><a href="{{ url_for('routes.login') }}">Iniciar Sesión</a></li>
                 <li><a href="{{ url_for('routes.register') }}">Registrarse</a></li>
                 <li><a href="{{ url_for('routes.anonymous') }}">Iniciar como Usuario Anónimo</a></li>
-            </ul>
-        </nav>        
+            </ul>      
+        </div>
         {% endif %}
-    </header>
-    <main>
         {% block content %}{% endblock %}
     </main>
     <footer>

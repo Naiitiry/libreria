@@ -161,8 +161,9 @@ def eliminar_libro():
 @routes.route('/autores')
 @login_required
 def inicio_autor():
-    autor = Autor.query.order_by(Autor.nombre).limit(10).all()
-    return render_template('autores.html',autor=autor)
+    page = request.args.get('page',1,type=int)
+    autor_paginacion = Autor.query.order_by(Autor.titulo).paginate(page=page,per_page=10)
+    return render_template('autor.html',autor_paginacion=autor_paginacion)
 
 @routes.route('/nuevo_autor',methods=['GET','POST'])
 @login_required

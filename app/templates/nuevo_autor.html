@@ -5,23 +5,23 @@
 {% block content %}
 {% if current_user.is_authenticated and not current_user.is_anonymous %}
     <form action="{{ url_for('routes.nuevo_autor') }}" method="POST" novalidate>
-        {{ form.hidden_tag() }}
+        {{ autorform.hidden_tag() }}
         <div>
-            {{ form.nombre.label }}
-            {{ form.nombre(size=128) }}<br>
-            {% for error in form.nombre.errors %}
-            <span style="color: red;">{{ error }}</span>
+            {{ autorform.nombre.label }}
+            {{ autorform.nombre(size=128) }}<br>
+            {% for error in autorform.nombre.errors %}
+            <div class="text-danger">{{ error }}</div>
             {% endfor %}
         </div>
         <div>
-            {{ form.apellido.label }}
-            {{ form.apellido(size=128) }}<br>
-            {% for error in form.apellido.errors %}
-            <span style="color: red;">{{ error }}</span>
+            {{ autorform.apellido.label }}
+            {{ autorform.apellido(size=128) }}<br>
+            {% for error in autorform.apellido.errors %}
+            <div class="text-danger">{{ error }}</div>
             {% endfor %}
         </div>
         <div>
-            {{ form.submit() }}
+            {{ autorform.enviar() }}
         </div>
     </form>
     {% else %}
