@@ -3,7 +3,7 @@
     {% block title %}Inicio{% endblock %}
 
     {% block content %}
-        {% if current_user.is_authenticated and not current_user.is_anonymous %}
+        {% if current_user.is_authenticated and current_user.role != anonymous_user %}
             <div>
                 <h2>Bienvenido, {{ current_user.usuario }}!</h2>
                 <h3>Libros</h3>
