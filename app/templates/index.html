@@ -1,11 +1,10 @@
-{% extends "base_template.html" %}
-
-    {% block title %}Inicio{% endblock %}
+{% extends "logging_template.html" %}
 
     {% block content %}
-        {% if current_user.is_authenticated and current_user.role != anonymous_user %}
-            <div>
-                <h2>Bienvenido, {{ current_user.usuario }}!</h2>
+        {% if current_user.is_authenticated and current_user.usuario != 'anonimo' %}
+        <div class="container_logging_index">
+            <h2>Bienvenido, {{ current_user.usuario }}!</h2>
+            <div class="container_index_libros">
                 <h3>Libros</h3>
                 <h4><a href="{{ url_for('routes.nuevo_libro') }}">Agregar nueva entrada</a></h4>
                 <div>
@@ -16,6 +15,8 @@
                     </ul>
                 </div>
                 <h4><a href="{{ url_for('routes.inicio_libro') }}">Todos los libros</a></h4>
+            </div>
+            <div class="container_index_autores">
                 <h3>Autores</h3>
                 <h4><a href="{{ url_for('routes.nuevo_autor') }}">Agregar nuevo autor</a></h4>
                 <div>
@@ -28,7 +29,9 @@
                 <h4><a href="{{ url_for('routes.inicio_autor') }}">Todos los autores</a></h4>
             </div>
             <a href="{{ url_for('routes.logout') }}">Cerrar sesión</a>
+        </div>
         {% else %}
+        <div class="container_logging_index">
             <div>
                 <h2>Bienvenido, {{ current_user.usuario }}!</h2>
                 <h3>Libros</h3>
@@ -37,6 +40,8 @@
                         <li>{{ libro.titulo }}</li>
                     {% endfor %}
                 </ul>
+            </div>
+            <div>
                 <h3>Autores</h3>
                 <ul>
                     {% for autor in autores %}
@@ -44,6 +49,7 @@
                     {% endfor %}
                 </ul>
             </div>
-            <a href="{{ url_for('routes.logout') }}">Cerrar sesión</a>
+        </div>
+        <a href="{{ url_for('routes.logout') }}">Cerrar sesión</a>
         {% endif %}
     {% endblock %}

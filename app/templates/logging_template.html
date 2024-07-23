@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,8 +13,11 @@
     <title>{% block title %}La Librería{% endblock %}</title>
 </head>
 <body>
-    <div class="container_form">
+    <main class="container_logging">
         {% block content %}{% endblock %}
-    </div>
+    </main>
+    <footer>
+        <p>&copy; 2024 La Librería</p>
+    </footer>
 </body>
 </html>

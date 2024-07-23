@@ -1,8 +1,10 @@
 {% extends "form_template.html" %}
+    {% block title %}
+        <h2>Editar libro</h2>
+    {% endblock %}
 {% block content %}
     {% if current_user.is_authenticated and current_user.usuario != 'anonimo' %}
-        <h2>Nuevo libro</h2>
-        <form action="{{ url_for('routes.nuevo_libro') }}" method="POST" novalidate>
+        <form action="{{ url_for('routes.nuevo_libro', id=libro.id) }}" method="POST" novalidate>
             {{ libroform.hidden_tag() }}
             <div class="mb-3">
                 {{ libroform.titulo.label }}
@@ -45,9 +47,9 @@
             <p>Volver al <a href="{{ url_for('routes.index') }}"><b>Inicio</b></a></p>
         </form>
         {% else %}
-        <p>
-            Acceso denegado, para poder agregar un nuevo libro debes estar correctamente 
-            <a href="{{ url_for('routes.register') }}"><b>registrado</b></a> ó <a href="{{ url_for('routes.login') }}"><b>iniciar sesión</b></a>
-        </p>
+            <p>
+                Acceso denegado, para poder agregar un nuevo libro debe estar correctamente 
+                <a href="{{ url_for('routes.register') }}"><b>registrado</b></a> ó <a href="{{ url_for('routes.login') }}"><b>iniciar sesión</b></a>
+            </p>
     {% endif %}
 {% endblock %}

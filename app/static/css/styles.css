@@ -194,7 +194,7 @@ body {
     min-height: 100vh;
     margin: 0;
 }
-main{
+.container_base_template{
     display: flex;
     height: 100vh;
     justify-content: center;
@@ -205,6 +205,56 @@ footer{
     bottom: 0;
     width: 100%;
 }
-.container_bienvenida{
-    list-style: none;
+.container_bienvenida ul li{
+    list-style-type: none;
+}
+.container_form{
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    .container_login{
+        border-radius: 15px;
+        padding: 30px;
+        background-color: #002d49;
+        filter:drop-shadow(5px 5px 5px #000c1d);
+    }
+    h2{
+        color: #e2dba9;
+    }
+    .form_login{
+        font-style: italic;
+        color: #00b8ff;
+    }
+    .form_login a {
+        color: #ffbf94; /* Color del enlace */
+        text-decoration: none; /* Elimina el subrayado */
+    }
+    .container_register{
+        background-color: #5a2b48;
+        filter:drop-shadow(5px 5px 5px #000c1d);
+        border-radius: 15px;
+        padding: 5px 10px;
+    }
+    .form_register{
+        font-style: italic;
+        color: #f8b7b6;
+    }
+    .form_register a{
+        color: yellow;
+        text-decoration: none;
+    }
+}
+.container_logging{
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    .container_logging_index{
+        background-color: #5a2b48;
+        .container_index_libros{
+            background-color: #e2dba9;
+        }
+    }
 }

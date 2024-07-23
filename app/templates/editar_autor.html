@@ -1,12 +1,11 @@
 {% extends "form_template.html" %}
     {% block title %}
-        <h2>Nuevo Autor</h2>
+        <h2>Editar Autor</h2>
     {% endblock %}
 
 {% block content %}
     {% if current_user.is_authenticated and current_user.usuario != 'anonimo' %}
-    <div>
-        <form action="{{ url_for('routes.nuevo_autor') }}" method="POST" novalidate>
+        <form action="{{ url_for('routes.editar_autor', id=autor.id) }}" method="POST" novalidate>
             {{ autorform.hidden_tag() }}
             <div>
                 {{ autorform.nombre.label }}
@@ -28,9 +27,8 @@
         </form>
         {% else %}
         <p>
-            Acceso denegado, para poder agregar un nuevo autor debes estar correctamente 
+            Acceso denegado, para poder agregar un nuevo libro debe estar correctamente 
             <a href="{{ url_for('routes.register') }}"><b>registrado</b></a> ó <a href="{{ url_for('routes.login') }}"><b>iniciar sesión</b></a>
         </p>
-    </div>
     {% endif %}
 {% endblock %}

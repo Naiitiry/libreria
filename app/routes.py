@@ -65,7 +65,7 @@ def logout():
     return redirect(url_for('routes.inicio'))
 
 # Ruta de Ingreso como Usuario Anónimo
-@routes.route('/anonymous')
+@routes.route('/anonimo')
 def anonymous():
     anonymous_user = User.query.filter_by(usuario='anonimo').first()
     if anonymous_user:
@@ -93,8 +93,8 @@ def index():
 # ******************************************************************
 '''
 En este apartado se muestra el CRUD de libros, así como un índice
-para los libros, con el endpoint /libros y otro igual pero para autores
-con el endpoint /autores
+para los libros, con el endpoint /libros para ver los 10 primeros libros
+y otro igual pero para autores con el endpoint /autores que muestra los 10 primeros autores
 '''
 @routes.route('/libros',methods=['GET','POST'])
 @login_required
@@ -147,7 +147,7 @@ def editar_libro():
 
 @routes.route('/eliminar_libro/<int:id>',methods=['GET','POST'])
 @login_required
-def eliminar_libro():
+def eliminar_libro(id):
     libro = Libro.query.get_or_404(id)
     db.session.delete(libro)
     db.session.commit()
@@ -162,8 +162,8 @@ def eliminar_libro():
 @login_required
 def inicio_autor():
     page = request.args.get('page',1,type=int)
-    autor_paginacion = Autor.query.order_by(Autor.titulo).paginate(page=page,per_page=10)
-    return render_template('autor.html',autor_paginacion=autor_paginacion)
+    autor_paginacion = Autor.query.order_by(Autor.nombre).paginate(page=page,per_page=10)
+    return render_template('autores.html',autor_paginacion=autor_paginacion)
 
 @routes.route('/nuevo_autor',methods=['GET','POST'])
 @login_required
@@ -205,7 +205,7 @@ def editar_autor():
 
 @routes.route('/eliminar_autor/<int:id>',methods=['GET','POST'])
 @login_required
-def eliminar_autor():
+def eliminar_autor(id):
     autor = Autor.query.get_or_404(id)
     db.session.delete(autor)
     db.session.commit()

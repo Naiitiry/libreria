@@ -1,24 +1,24 @@
-{% extends "base_template.html" %}
+{% extends "logging_template.html" %}
 
-{% block title %}Libros{% endblock %}
-
-{% block content %}
-{% if current_user.is_authenticated %}
-    <h2>Libros</h2>
-    <ul>
-        {% for libro in libros_pagination.items %}
-            <li>{{ libro.titulo }}</li>
-        {% endfor %}
-    </ul>
-
-    <div>
-        {% if libros_paginacion.has_prev %}
-            <a href="{{ url_for('routes.libros', page=libros_paginacion.prev_num) }}">Anterior</a>
-        {% endif %}
-        <span>Página {{ libros_paginacion.page }} de {{ libros_paginacion.pages }}</span>
-        {% if libros_paginacion.has_next %}
-            <a href="{{ url_for('routes.libros', page=libros_paginacion.next_num) }}">Siguiente</a>
-        {% endif %}
-    </div>
-    {% endif %}
-{% endblock %}
+    {% block content %}
+        {% if current_user.is_authenticated %}
+            <h2>Libros</h2>
+            <ul>
+                {% for libro in libros_paginacion.items %}
+                    <li>{{ libro.titulo }}</li>
+                {% endfor %}
+            </ul>
+            <div>
+                {% if libros_paginacion.has_prev %}
+                    <a href="{{ url_for('routes.libros', page=libros_paginacion.prev_num) }}">Anterior</a>
+                {% endif %}
+                <span>Página {{ libros_paginacion.page }} de {{ libros_paginacion.pages }}</span>
+                {% if libros_paginacion.has_next %}
+                    <a href="{{ url_for('routes.libros', page=libros_paginacion.next_num) }}">Siguiente</a>
+                {% endif %}
+            </div>
+            <div>
+                <p>Volver al <a href="{{ url_for('routes.index') }}"><b>Inicio</b></a></p>
+            </div>
+            {% endif %}
+    {% endblock %}

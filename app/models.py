@@ -24,7 +24,7 @@ class User(db.Model,UserMixin):
 # Clase Anónima
 class AnonymousUser(AnonymousUserMixin):
     def __init__(self):
-        self.usuario = 'Anónimo'
+        self.usuario = 'anonimo'
 
 # Clase Autor
 class Autor(db.Model):
