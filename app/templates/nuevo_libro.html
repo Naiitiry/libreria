@@ -1,53 +1,55 @@
 {% extends "form_template.html" %}
 {% block content %}
+    <h2>Nuevo libro</h2>
     {% if current_user.is_authenticated and current_user.usuario != 'anonimo' %}
-        <h2>Nuevo libro</h2>
+    <div>
         <form action="{{ url_for('routes.nuevo_libro') }}" method="POST" novalidate>
             {{ libroform.hidden_tag() }}
-            <div class="mb-3">
+            <div>
                 {{ libroform.titulo.label }}
-                {{ libroform.titulo(size=128) }}<br>
+                {{ libroform.titulo(size=100) }}<br>
                 {% for error in libroform.titulo.errors %}
                 <div class="text-danger">{{ error }}</div>
                 {% endfor %}
             </div>
-            <div class="mb-3">
+            <div>
                 {{ libroform.genero.label }}
-                {{ libroform.genero(size=128) }}<br>
+                {{ libroform.genero(size=100) }}<br>
                 {% for error in libroform.genero.errors %}
                 <div class="text-danger">{{ error }}</div>
                 {% endfor %}
             </div>
-            <div class="mb-3">
+            <div>
                 {{ libroform.precio.label }}
                 {{ libroform.precio }}<br>
                 {% for error in libroform.precio.errors %}
                 <div class="text-danger">{{ error }}</div>
                 {% endfor %}
             </div>
-            <div class="mb-3">
+            <div>
                 {{ libroform.cantidad.label }}
                 {{ libroform.cantidad }}<br>
                 {% for error in libroform.cantidad.errors %}
                 <div class="text-danger">{{ error }}</div>
                 {% endfor %}
             </div>
-            <div class="mb-3">
+            <div>
                 {{ libroform.autor_id.label }}
                 {{ libroform.autor_id }}<br>
                 {% for error in libroform.autor_id.errors %}
                 <div class="text-danger">{{ error }}</div>
                 {% endfor %}
             </div>
-            <div class="mb-3">
+            <div>
                 {{ libroform.enviar() }}
             </div>
-            <p>Volver al <a href="{{ url_for('routes.index') }}"><b>Inicio</b></a></p>
         </form>
+        <p>Volver al <a href="{{ url_for('routes.index') }}"><b>Inicio</b></a></p>
         {% else %}
         <p>
             Acceso denegado, para poder agregar un nuevo libro debes estar correctamente 
             <a href="{{ url_for('routes.register') }}"><b>registrado</b></a> ó <a href="{{ url_for('routes.login') }}"><b>iniciar sesión</b></a>
         </p>
+    </div>
     {% endif %}
 {% endblock %}

@@ -1,9 +1,6 @@
 {% extends "form_template.html" %}
-    {% block title %}
-        <h2>Nuevo Autor</h2>
-    {% endblock %}
-
 {% block content %}
+    <h2>Nuevo Autor</h2>
     {% if current_user.is_authenticated and current_user.usuario != 'anonimo' %}
     <div>
         <form action="{{ url_for('routes.nuevo_autor') }}" method="POST" novalidate>

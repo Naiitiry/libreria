@@ -28,11 +28,13 @@
                 </div>
                 <h4><a href="{{ url_for('routes.inicio_autor') }}">Todos los autores</a></h4>
             </div>
-            <a href="{{ url_for('routes.logout') }}">Cerrar sesión</a>
+            <div class="container_index_logout">
+                <a href="{{ url_for('routes.logout') }}">Cerrar sesión</a>
+            </div>
         </div>
         {% else %}
         <div class="container_logging_index">
-            <div>
+            <div class="container_index_libros">
                 <h2>Bienvenido, {{ current_user.usuario }}!</h2>
                 <h3>Libros</h3>
                 <ul>
@@ -41,7 +43,7 @@
                     {% endfor %}
                 </ul>
             </div>
-            <div>
+            <div class="container_index_autores">
                 <h3>Autores</h3>
                 <ul>
                     {% for autor in autores %}
@@ -49,7 +51,9 @@
                     {% endfor %}
                 </ul>
             </div>
+            <div class="container_index_logout">
+                <a href="{{ url_for('routes.logout') }}">Cerrar sesión</a>
+            </div>
         </div>
-        <a href="{{ url_for('routes.logout') }}">Cerrar sesión</a>
         {% endif %}
     {% endblock %}

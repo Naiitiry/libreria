@@ -2,33 +2,27 @@
 
 {% block content %}
     <div class="container_register">
-        <h2>Registrarse</h2>
+        <h2>Registro</h2>
         <div class="form_register">
             <form method="POST" action="{{ url_for('routes.register') }}" novalidate>
                 {{ form.hidden_tag() }}
                 <p>
-                    {{ form.usuario.label }}<br>
-                    {{ form.usuario(size=32) }}
+                    {{ form.usuario(size=32, placeholder="Usuario") }}
                 </p>
                 <p>
-                    {{ form.email.label }}<br>
-                    {{ form.email(size=32) }}
+                    {{ form.email(size=32, placeholder="Email") }}
                 </p>
                 <p>
-                    {{ form.nombre.label }}<br>
-                    {{ form.nombre(size=32) }}
+                    {{ form.nombre(size=32, placeholder="Nombre") }}
                 </p>
                 <p>
-                    {{ form.apellido.label }}<br>
-                    {{ form.apellido(size=32) }}
+                    {{ form.apellido(size=32, placeholder="Apellido") }}
                 </p>
                 <p>
-                    {{ form.password.label }}<br>
-                    {{ form.password(size=32) }}
+                    {{ form.password(size=32, placeholder="Ingrese su contraseña") }}
                 </p>
                 <p>
-                    {{ form.confirm_password.label }}<br>
-                    {{ form.confirm_password(size=32) }}<br>
+                    {{ form.confirm_password(size=32, placeholder="Reconfirme su contraseña") }}<br>
                 </p>
                 <p>{{ form.enviar() }}</p>
             </form>

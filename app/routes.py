@@ -108,19 +108,19 @@ def inicio_libro():
 @login_required
 def nuevo_libro():
     libro = Libro()
-    libroform = LibroForm(obj=libro)
-    if current_user.is_authenticated and not current_user.is_anonymous:
-        if libroform.validate_on_submit():
-            libro.titulo = libroform.titulo.data
-            libro.genero = libroform.genero.data
-            libro.precio = libroform.precio.data
-            libro.cantidad = libroform.cantidad.data
-            libro.autor_id = libroform.autor_id.data
+    libroForm = LibroForm(obj=libro)
+    if current_user.is_authenticated and current_user.usuario != 'anonimo':
+        if libroForm.validate_on_submit():
+            libro.titulo = libroForm.titulo.data
+            libro.genero = libroForm.genero.data
+            libro.precio = libroForm.precio.data
+            libro.cantidad = libroForm.cantidad.data
+            libro.autor_id = libroForm.autor_id.data
             db.session.add(libro)
             db.session.commit()
             flash('Libro guardado exitosamente!','success')
-            return redirect(url_for('routes.inicio_libros'))
-    return render_template('nuevo_libro.html',libroform=libroform)
+            return redirect(url_for('routes.inicio_libro'))
+    return render_template('nuevo_libro.html',libroform=libroForm)
 
 @routes.route('/detalle_libro/<int:id>',methods=['GET'])
 def detalle_libro(id):
@@ -129,10 +129,10 @@ def detalle_libro(id):
 
 @routes.route('/editar_libro/<int:id>',methods=['GET','POST'])
 @login_required
-def editar_libro():
+def editar_libro(id):
     libro = Libro.query.get_or_404(id)
     libroForm = LibroForm(obj=libro)
-    if current_user.is_authenticated and not current_user.is_anonymous:
+    if current_user.is_authenticated and current_user.usuario != 'anonimo':
         if libroForm.validate_on_submit():
             libro.titulo = libroForm.titulo.data
             libro.genero = libroForm.genero.data
@@ -148,10 +148,11 @@ def editar_libro():
 @routes.route('/eliminar_libro/<int:id>',methods=['GET','POST'])
 @login_required
 def eliminar_libro(id):
-    libro = Libro.query.get_or_404(id)
-    db.session.delete(libro)
-    db.session.commit()
-    flash('Libro eliminado exitosamente!','success')
+    if current_user.is_authenticated and current_user.usuario != 'anonimo':
+        libro = Libro.query.get_or_404(id)
+        db.session.delete(libro)
+        db.session.commit()
+        flash('Libro eliminado exitosamente!','success')
     return redirect(url_for('routes.inicio_libros'))
 
 # ******************************************************************
@@ -170,11 +171,10 @@ def inicio_autor():
 def nuevo_autor():
     autor = Autor()
     autorForm = AutorForm(obj=autor)
-    if current_user.is_authenticated and not current_user.is_anonymous:
+    if current_user.is_authenticated and current_user.usuario != 'anonimo':
         if autorForm.validate_on_submit():
             autor.nombre = autorForm.nombre.data
             autor.apellido = autorForm.apellido.data
-            autor.libros = autorForm.libros.data
             db.session.add(autor)
             db.session.commit()
             flash('Autor guardado exitosamente!','success')
@@ -184,15 +184,15 @@ def nuevo_autor():
 @routes.route('/detalle_autor/<int:id>',methods=['GET'])
 @login_required
 def detalle_autor(id):
-    autor = Autor.query.get_or_404
+    autor = Autor.query.get_or_404(id)
     return render_template('detalle_autor.html',autor=autor)
 
 @routes.route('/editar_autor/<int:id>',methods=['GET','POST'])
 @login_required
-def editar_autor():
+def editar_autor(id):
     autor = Autor.query.get_or_404(id)
     autorForm = AutorForm(obj=autor)
-    if current_user.is_authenticated and not current_user.is_anonymous:
+    if current_user.is_authenticated and current_user.usuario != 'anonimo':
         if autorForm.validate_on_submit():
             autor.nombre = autorForm.nombre.data
             autor.apellido = autorForm.apellido.data
@@ -206,8 +206,9 @@ def editar_autor():
 @routes.route('/eliminar_autor/<int:id>',methods=['GET','POST'])
 @login_required
 def eliminar_autor(id):
-    autor = Autor.query.get_or_404(id)
-    db.session.delete(autor)
-    db.session.commit()
-    flash('Autor eliminado exitosamente!','success')
+    if current_user.is_authenticated and current_user.usuario != 'anonimo':
+        autor = Autor.query.get_or_404(id)
+        db.session.delete(autor)
+        db.session.commit()
+        flash('Autor eliminado exitosamente!','success')
     return redirect(url_for('routes.inicio_autor'))
