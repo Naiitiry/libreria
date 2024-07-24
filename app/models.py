@@ -38,6 +38,6 @@ class Libro(db.Model):
     id =  db.Column(db.Integer,primary_key=True)
     titulo = db.Column(db.String(200),nullable=False)
     genero = db.Column(db.String(100),nullable=False)
-    precio = db.Column(db.Float,nullable=False)
-    cantidad = db.Column(db.Integer,nullable=False)
+    precio = db.Column(db.Float,default=0)
+    cantidad = db.Column(db.Integer,default=0)
     autor_id = db.Column(db.Integer, db.ForeignKey('autor.id'), nullable=False)

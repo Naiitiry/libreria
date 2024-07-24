@@ -120,6 +120,10 @@ def nuevo_libro():
             db.session.commit()
             flash('Libro guardado exitosamente!','success')
             return redirect(url_for('routes.inicio_libro'))
+        else:
+            for field, errors in libroForm.errors.items():
+                for error in errors:
+                    flash(f"Error en {field}: {error}", 'danger')
     return render_template('nuevo_libro.html',libroform=libroForm)
 
 @routes.route('/detalle_libro/<int:id>',methods=['GET'])

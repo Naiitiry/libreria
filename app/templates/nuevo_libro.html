@@ -45,6 +45,17 @@
             </div>
         </form>
         <p>Volver al <a href="{{ url_for('routes.index') }}"><b>Inicio</b></a></p>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="alerts">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
         {% else %}
         <p>
             Acceso denegado, para poder agregar un nuevo libro debes estar correctamente 
