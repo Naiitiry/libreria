@@ -2,13 +2,16 @@
 
 {% block content %}
 {% if current_user.is_authenticated %}
+<div class="container_autores">
     <h2>Autores</h2>
-    <ul>
-        {% for autor in autor_paginacion.items %}
-            <li>{{ autor.nombre }}</li>
-        {% endfor %}
-    </ul>
-    <div>
+    <div class="container_autores_lista">
+        <ul>
+            {% for autor in autor_paginacion.items %}
+                <li>{{ autor.nombre }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="container_autores_paginacion">
         {% if autor_paginacion.has_prev %}
             <a href="{{ url_for('routes.autores', page=autor_paginacion.prev_num) }}">Anterior</a>
         {% endif %}
@@ -17,8 +20,9 @@
             <a href="{{ url_for('routes.autores', page=autor_paginacion.next_num) }}">Siguiente</a>
         {% endif %}
     </div>
-    <div>
+    <div class="container_autores_inicio">
         <p>Volver al <a href="{{ url_for('routes.index') }}"><b>Inicio</b></a></p>
     </div>
+</div>
     {% endif %}
 {% endblock %}

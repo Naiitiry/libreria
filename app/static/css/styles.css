@@ -77,6 +77,9 @@ footer{
     align-items: center;
     flex-direction: column;
     background-color: #E9F1FA;
+    ul,li{
+        list-style: none;
+    }
     a{
         text-decoration: none;
         color: #fff;
@@ -95,5 +98,19 @@ footer{
         color: #fff;
         text-align: center;
     }
-
+    .container_autores{
+        background-color: #00b8ff;
+        padding: 10px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+    .container_autores ul{
+        display: grid;
+        grid-template-columns: repeat(5, auto);
+        grid-template-rows: 1fr;
+        column-gap: 15px;
+        row-gap: 15px;
+    }
 }
