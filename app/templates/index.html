@@ -1,5 +1,4 @@
 {% extends "logging_template.html" %}
-
     {% block content %}
         {% if current_user.is_authenticated and current_user.usuario != 'anonimo' %}
         <div class="container_logging_index">
@@ -22,7 +21,7 @@
                 <div>
                     <ul>
                         {% for autor in autores %}
-                            <li>{{ autor.nombre }}</li>
+                            <li>{{ autor.nombre }} {{ autor.apellido }}</li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -47,7 +46,7 @@
                 <h3>Autores</h3>
                 <ul>
                     {% for autor in autores %}
-                        <li>{{ autor.nombre }}</li>
+                        <li>{{ autor.nombre }} {{ autor.apellido }}</li>
                     {% endfor %}
                 </ul>
             </div>
