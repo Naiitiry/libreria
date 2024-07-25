@@ -109,7 +109,7 @@ def inicio_libro():
 def nuevo_libro():
     libro = Libro()
     libroForm = LibroForm(obj=libro)
-    if current_user.is_authenticated and current_user.usuario != 'anonimo':
+    if request.method == 'POST':
         if libroForm.validate_on_submit():
             libro.titulo = libroForm.titulo.data
             libro.genero = libroForm.genero.data
@@ -122,8 +122,9 @@ def nuevo_libro():
             return redirect(url_for('routes.inicio_libro'))
         else:
             for field, errors in libroForm.errors.items():
-                for error in errors:
-                    flash(f"Error en {field}: {error}", 'danger')
+                if errors:
+                    for error in errors:
+                        flash(f"Error en {field}: {error}", 'danger')
     return render_template('nuevo_libro.html',libroform=libroForm)
 
 @routes.route('/detalle_libro/<int:id>',methods=['GET'])

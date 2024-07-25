@@ -14,7 +14,7 @@ class LibroForm(FlaskForm):
     enviar = SubmitField('Guardar')
 
     def __init__(self, *args, **kwargs):
-        super(LibroForm,self).__init__(args, **kwargs)
+        super(LibroForm,self).__init__(*args, **kwargs)
         self.autor_id.choices=[(autor.id, f'{autor.nombre} {autor.apellido}') for autor in Autor.query.all()]
 
 class AutorForm(FlaskForm):
