@@ -1,0 +1,13 @@
+{% extends "logging_template.html" %}
+    {% block content %}
+        {% if current_user.is_authenticated and current_user.usuario != 'anonimo' %}
+            <div class="container_libro">
+                <div class="libro_imagen"></div>
+                <div class="libro_titulo"></div>
+                <div class="libro_autor"></div>
+                <div class="libro_genero"></div>
+                <div class="libro_precio"></div>
+                <div class="libro_cantidad"></div>
+            </div>
+        {% endif %}
+    {% endblock %}
