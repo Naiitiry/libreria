@@ -18,6 +18,7 @@ footer{
     position: absolute;
     bottom: 0;
     width: 100%;
+    color: #d4c26b
 }
 .container_bienvenida ul li{
     list-style-type: none;
@@ -76,7 +77,7 @@ footer{
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: #E9F1FA;
+    background-color: #184d3e;
     ul,li{
         list-style: none;
     }
@@ -86,11 +87,9 @@ footer{
     }
     a:hover{
         transition: 0.6s;
-        text-decoration: underline;
-        color:#002d49 ;
+        color:#f75300 ;
     }
     .container_logging_index{
-        background-color: #00ABE4;
         padding: 10px;
     }
     .container_logging_index h2,h3{
@@ -98,8 +97,13 @@ footer{
         color: #fff;
         text-align: center;
     }
-    .container_index_libros{
-        
+    .container_index_libros a:hover{
+        color: red;
+    }
+    .container_index_autores ul{
+        display: grid;
+        grid-template-columns: repeat(5, auto);
+        gap: 15px;
     }
     .container_autores{
         background-color: #00b8ff;

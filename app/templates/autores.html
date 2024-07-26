@@ -7,7 +7,7 @@
     <div class="container_autores_lista">
         <ul>
             {% for autor in autor_paginacion.items %}
-                <li><a href="{{ url_for('routes.detalle_autor', autor_id=autor.id) }}"></a>{{ autor.nombre }}</li>
+                <li><a href="{{ url_for('routes.detalle_autor', id=autor.id) }}">{{ autor.nombre }}</a></li>
             {% endfor %}
         </ul>
     </div>

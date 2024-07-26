@@ -1,0 +1,11 @@
+{% extends "logging_template.html" %}
+    {% block content %}
+        {% if current_user.is_authenticated and current_user.usuario != 'anonimo' %}
+            <div class="container_autor">
+                <div class="autor_imagen"></div>
+                <div class="autor_nombre"></div>
+                <div class="autor_apelido"></div>
+                <div class="autor_libros"></div>
+            </div>
+        {% endif %}
+    {% endblock %}
