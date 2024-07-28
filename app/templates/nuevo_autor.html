@@ -2,37 +2,46 @@
 {% block content %}
     <h2>Nuevo Autor</h2>
     {% if current_user.is_authenticated and current_user.usuario != 'anonimo' %}
-    <div>
+    <div class="nuevo_autor">
         <form action="{{ url_for('routes.nuevo_autor') }}" method="POST" novalidate>
             {{ autorform.hidden_tag() }}
-            <div>
-                {{ autorform.nombre.label }}
-                {{ autorform.nombre(size=128) }}<br>
+            <div class="form-group">
+                {{ autorform.nombre(size=50, placeholder="Nombre", class="form-control") }}<br>
                 {% for error in autorform.nombre.errors %}
                 <div class="text-danger">{{ error }}</div>
                 {% endfor %}
             </div>
-            <div>
-                {{ autorform.apellido.label }}
-                {{ autorform.apellido(size=128) }}<br>
+            <div class="form-group">
+                {{ autorform.apellido(size=50, placeholder="Apellido", class="form-control") }}<br>
                 {% for error in autorform.apellido.errors %}
                     <div class="text-danger">{{ error }}</div>
                 {% endfor %}
             </div>
-            <div>
-                {{ autorform.descripcion.label }}
-                {{ autorform.descripcion(size=128) }}<br>
+            <div class="form-group">
+                {{ autorform.descripcion(size=50, placeholder="Descripción", class="form-control") }}<br>
                 {% for error in autorform.descripcion.errors %}
                     <div class="text-danger">{{ error }}</div>
                 {% endfor %}
             </div>
-            <div>
-                {{ autorform.enviar() }}
+            <div class="form-group mb-3">
+                {{ autorform.enviar(class="form-control") }}
             </div>
         </form>
+        <p>Volver al <a href="{{ url_for('routes.index') }}"><b>Inicio</b></a></p>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="alerts">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
         {% else %}
         <p>
-            Acceso denegado, para poder agregar un nuevo autor debes estar correctamente 
+            Acceso denegado, para poder agregar un nuevo libro debes estar correctamente 
             <a href="{{ url_for('routes.register') }}"><b>registrado</b></a> ó <a href="{{ url_for('routes.login') }}"><b>iniciar sesión</b></a>
         </p>
     </div>

@@ -7,12 +7,10 @@
             <form action="{{ url_for('routes.login') }}" method="POST" novalidate>
                 {{ form.hidden_tag() }}
                 <div>
-                    {{ form.usuario.label }}<br>
-                    {{ form.usuario(size=32) }}<br>
+                    {{ form.usuario(size=32, placeholder = 'Usuario') }}<br>
                 </div>
                 <div>
-                    {{ form.password.label }}<br>
-                    {{ form.password(size=32) }}<br>
+                    {{ form.password(size=32, placeholder = 'Password') }}<br>
                 </div>
                 <div>
                     {{ form.recuerdame() }} {{ form.recuerdame.label }}

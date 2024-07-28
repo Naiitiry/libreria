@@ -2,56 +2,51 @@
 {% block content %}
     <h2>Nuevo libro</h2>
     {% if current_user.is_authenticated and current_user.usuario != 'anonimo' %}
-    <div>
+    <div class="nuevo_libro">
         <form action="{{ url_for('routes.nuevo_libro') }}" method="POST" novalidate>
             {{ libroform.hidden_tag() }}
-            <div>
-                {{ libroform.titulo.label }}
-                {{ libroform.titulo(size=100) }}<br>
+            <div class="form-group mb-3">
+                {{ libroform.titulo(size=40, placeholder = 'Título', class="form-control") }}
                 {% if libroform.titulo.errors %}
                     {% for error in libroform.titulo.errors %}
                         <div class="text-danger">{{ error }}</div>
                     {% endfor %}
                 {% endif %}
             </div>
-            <div>
-                {{ libroform.genero.label }}
-                {{ libroform.genero(size=100) }}<br>
+            <div class="form-group mb-3">
+                {{ libroform.genero(size=40, placeholder = 'Género', class="form-control") }}
                 {% if libroform.genero.errors %}
                     {% for error in libroform.genero.errors %}
                         <div class="text-danger">{{ error }}</div>
                     {% endfor %}
                 {% endif %}
             </div>
-            <div>
-                {{ libroform.precio.label }}
-                {{ libroform.precio }}<br>
+            <div class="form-group mb-3">
+                {{ libroform.precio(size=40, placeholder = 'Precio', class="form-control") }}
                 {% if libroform.precio.errors %}
                     {% for error in libroform.precio.errors %}
                         <div class="text-danger">{{ error }}</div>
                     {% endfor %}
                 {% endif %}
             </div>
-            <div>
-                {{ libroform.cantidad.label }}
-                {{ libroform.cantidad }}<br>
+            <div class="form-group mb-3">
+                {{ libroform.cantidad(size=40, placeholder = 'Cantidad', class="form-control") }}
                 {% if libroform.cantidad.errors %}
                     {% for error in libroform.cantidad.errors %}
                         <div class="text-danger">{{ error }}</div>
                     {% endfor %}
                 {% endif %}
             </div>
-            <div>
-                {{ libroform.autor_id.label }}
-                {{ libroform.autor_id }}<br>
+            <div class="form-group mb-3">
+                {{ libroform.autor_id(class="form-control")}}
                 {% if libroform.autor_id.errors %}
                     {% for error in libroform.autor_id.errors %}
                         <div class="text-danger">{{ error }}</div>
                     {% endfor %}
                 {% endif %}
             </div>
-            <div>
-                {{ libroform.enviar() }}
+            <div class="form-group mb-3">
+                {{ libroform.enviar(class="form-control")}}
             </div>
         </form>
         <p>Volver al <a href="{{ url_for('routes.index') }}"><b>Inicio</b></a></p>

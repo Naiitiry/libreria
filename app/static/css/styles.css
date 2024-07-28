@@ -6,7 +6,7 @@ body {
         "footer";
     min-height: 100vh;
     margin: 0;
-    background-color: #a73d4d;
+    background-color: #aa626d;
 }
 .container_base_template{
     display: flex;
@@ -70,6 +70,18 @@ footer{
     .form_register a{
         color: yellow;
         text-decoration: none;
+    }
+    .nuevo_libro{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center
+    }
+    .nuevo_autor{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center
     }
 }
 .container_logging{
