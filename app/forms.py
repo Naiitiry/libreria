@@ -20,6 +20,7 @@ class LibroForm(FlaskForm):
 class AutorForm(FlaskForm):
     nombre = StringField('Nombre',validators=[DataRequired()])
     apellido = StringField('Apellido',validators=[DataRequired()])
+    descripcion = StringField('Descripción')
     enviar = SubmitField('Guardar')
 
 # BUSQUEDA EN EL INDEX

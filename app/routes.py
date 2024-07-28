@@ -132,7 +132,7 @@ def detalle_libro(id):
     libro = Libro.query.get_or_404(id)
     return render_template('detalle_libro.html',libro=libro)
 
-@routes.route('/editar_libro/<int:id>',methods=['GET','POST'])
+@routes.route('/editar_libro/<int:id>',methods=['PUT'])
 @login_required
 def editar_libro(id):
     libro = Libro.query.get_or_404(id)
@@ -144,7 +144,7 @@ def editar_libro(id):
             libro.precio = libroForm.precio.data
             libro.cantidad = libroForm.cantidad.data
             libro.autor_id = libroForm.autor_id.data
-            db.session.add(libro)
+            db.session.merge(libro)
             db.session.commit()
             flash('Libro actualizado exitosamente!','success')
             return redirect(url_for('routes.inicio_libros'))
@@ -189,24 +189,21 @@ def nuevo_autor():
 @routes.route('/detalle_autor/<int:id>',methods=['GET'])
 @login_required
 def detalle_autor(id):
-    autor = Autor.query.get_or_404(id)
-    return render_template('detalle_autor.html',autor=autor)
+    autor_detalle = Autor.query.get_or_404(id)
+    return render_template('detalle_autor.html',autor_detalle=autor_detalle)
 
-@routes.route('/editar_autor/<int:id>',methods=['GET','POST'])
+@routes.route('/editar_autor/<int:id>', methods=['GET', 'POST'])
 @login_required
 def editar_autor(id):
     autor = Autor.query.get_or_404(id)
     autorForm = AutorForm(obj=autor)
-    if current_user.is_authenticated and current_user.usuario != 'anonimo':
+    if current_user.is_authenticated and current_user.usuario != 'anonimo' and request.method == 'POST':
         if autorForm.validate_on_submit():
-            autor.nombre = autorForm.nombre.data
-            autor.apellido = autorForm.apellido.data
-            autor.libros = autorForm.libros.data
-            db.session.add(autor)
+            autorForm.populate_obj(autor)
             db.session.commit()
-            flash('Autor actualizado exitosamente!','success')
+            flash('Autor actualizado exitosamente!', 'success')
             return redirect(url_for('routes.inicio_autor'))
-    return render_template('nuevo_autor.html',autorform=autorForm)
+    return render_template('editar_autor.html', autorform=autorForm)
 
 @routes.route('/eliminar_autor/<int:id>',methods=['GET','POST'])
 @login_required

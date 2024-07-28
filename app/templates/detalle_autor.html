@@ -1,11 +1,17 @@
 {% extends "logging_template.html" %}
     {% block content %}
         {% if current_user.is_authenticated and current_user.usuario != 'anonimo' %}
+            <h1>Detalles del autor</h1>
             <div class="container_autor">
-                <div class="autor_imagen"></div>
-                <div class="autor_nombre"></div>
-                <div class="autor_apelido"></div>
-                <div class="autor_libros"></div>
+                <div class="autor_imagen">imagen</div>
+                <div class="autor_nombre">{{ autor_detalle.nombre }}</div>
+                <div class="autor_apelido">{{ autor_detalle.apellido }}</div>
+                <div class="autor_descripcion">{{ autor_detalle.descripcion }}</div>
+                <div class="autor_libros">libros</div>
+            </div>
+            <div>
+                <a href="{{ url_for('routes.inicio_autor')}}">Volver a la lista de autores</a>
+                <a href="{{ url_for('routes.index')}}">Volver al inicio</a>
             </div>
         {% endif %}
     {% endblock %}

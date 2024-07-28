@@ -1,9 +1,8 @@
 {% extends "logging_template.html" %}
 
 {% block content %}
-{% if current_user.is_authenticated %}
+{% if current_user.is_authenticated and current_user.usuario != 'anonimo' %}
 <div class="container_autores">
-    <h2>Autores</h2>
     <div class="container_autores_lista">
         <ul>
             {% for autor in autor_paginacion.items %}
@@ -13,11 +12,11 @@
     </div>
     <div class="container_autores_paginacion">
         {% if autor_paginacion.has_prev %}
-            <a href="{{ url_for('routes.autores', page=autor_paginacion.prev_num) }}">Anterior</a>
+            <a href="{{ url_for('routes.inicio_autor', page=autor_paginacion.prev_num) }}">Anterior</a>
         {% endif %}
         <span>Página {{ autor_paginacion.page }} de {{ autor_paginacion.pages }}</span>
         {% if autor_paginacion.has_next %}
-            <a href="{{ url_for('routes.autores', page=autor_paginacion.next_num) }}">Siguiente</a>
+            <a href="{{ url_for('routes.inicio_autor', page=autor_paginacion.next_num) }}">Siguiente</a>
         {% endif %}
     </div>
     <div class="container_autores_inicio">

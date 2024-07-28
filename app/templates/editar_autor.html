@@ -1,11 +1,9 @@
 {% extends "form_template.html" %}
-    {% block title %}
-        <h2>Editar Autor</h2>
-    {% endblock %}
 
 {% block content %}
+    <h2>Editación de Autores</h2>
     {% if current_user.is_authenticated and current_user.usuario != 'anonimo' %}
-        <form action="{{ url_for('routes.editar_autor', id=autor.id) }}" method="POST" novalidate>
+        <form method="POST" novalidate>
             {{ autorform.hidden_tag() }}
             <div>
                 {{ autorform.nombre.label }}
@@ -22,9 +20,28 @@
                 {% endfor %}
             </div>
             <div>
+                {{ autorform.descripcion.label }}
+                {{ autorform.descripcion(size=128) }}<br>
+                {% for error in autorform.descripcion.errors %}
+                    <div class="text-danger">{{ error }}</div>
+                {% endfor %}
+            </div>
+            <div>
                 {{ autorform.enviar() }}
             </div>
         </form>
+        <p>Volver al <a href="{{ url_for('routes.index') }}"><b>Inicio</b></a></p>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="alerts">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
         {% else %}
         <p>
             Acceso denegado, para poder agregar un nuevo libro debe estar correctamente 

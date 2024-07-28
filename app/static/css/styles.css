@@ -6,7 +6,7 @@ body {
         "footer";
     min-height: 100vh;
     margin: 0;
-    background-color: #e2e2e2;
+    background-color: #a73d4d;
 }
 .container_base_template{
     display: flex;
@@ -28,10 +28,11 @@ footer{
 }
 .container_bienvenida ul li a{
     text-decoration: none;
-    color: #0972af;
+    color: #d4c26b;
 }
 .container_bienvenida h1{
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: #f7f2d7;
 }
 .container_form{
     display: flex;
@@ -64,7 +65,7 @@ footer{
     }
     .form_register{
         font-style: italic;
-        color: #f8b7b6;
+        color: #fffdd5;
     }
     .form_register a{
         color: yellow;
@@ -98,7 +99,7 @@ footer{
         text-align: center;
     }
     .container_index_libros a:hover{
-        color: red;
+        color: #0079d9;
     }
     .container_index_autores ul{
         display: grid;

@@ -7,11 +7,13 @@
                 <h3>Libros</h3>
                 <h4><a href="{{ url_for('routes.nuevo_libro') }}">Agregar nueva entrada</a></h4>
                 <div>
-                    <ul>
+                    <table>
                         {% for libro in libros %}
-                            <li><a href="{{ url_for('routes.detalle_libro', id=libro.id) }}">{{ libro.titulo }}</a></li>
+                        <tr>
+                            <td><a href="{{ url_for('routes.detalle_libro', id=libro.id) }}">{{ libro.titulo }}</a></td>
+                        </tr>
                         {% endfor %}
-                    </ul>
+                    </table>
                 </div>
                 <h4><a href="{{ url_for('routes.inicio_libro') }}">Todos los libros</a></h4>
             </div>
