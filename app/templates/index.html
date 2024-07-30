@@ -7,25 +7,29 @@
             </div>
             <div class="container_index_libros">
                 <h3>Libros</h3>
-                <h4><a href="{{ url_for('routes.nuevo_libro') }}">Agregar nueva entrada</a></h4>
                 <div>
-                    <table>
+                    <a href="{{ url_for('routes.nuevo_libro') }}"><img src="{{ url_for('static', filename='img/add.png') }}" alt="Nuevo libro" width="30" height="30"></a>
+                </div>
+                <div>
+                    <ul>
                         {% for libro in libros %}
-                        <tr>
-                            <td><a href="{{ url_for('routes.detalle_libro', id=libro.id) }}">{{ libro.titulo }}</a></td>
-                        </tr>
+                            <li><a href="{{ url_for('routes.detalle_libro', id=libro.id) }}">{{ libro.titulo }}</a></li>
                         {% endfor %}
-                    </table>
+                    </ul>
                 </div>
                 <h4><a href="{{ url_for('routes.inicio_libro') }}">Todos los libros</a></h4>
             </div>
             <div class="container_index_autores">
                 <h3>Autores</h3>
-                <h4><a href="{{ url_for('routes.nuevo_autor') }}">Agregar nuevo autor</a></h4>
-                <div class="container_index_autores">
+                <div>
+                    <a href="{{ url_for('routes.nuevo_autor') }}"><img src="{{ url_for('static', filename='img/add.png') }}" alt="Nuevo autor" width="30" height="30"></a>
+                </div>
+                <div>
                     <ul>
                         {% for autor in autores %}
-                            <li><a href="{{ url_for('routes.detalle_autor', id=autor.id) }}">{{ autor.nombre }} {{ autor.apellido }}</a></li>
+                            <li>
+                                <a href="{{ url_for('routes.detalle_autor', id=autor.id) }}">{{ autor.nombre }} {{ autor.apellido }}</a>
+                            </li>
                         {% endfor %}
                     </ul>
                 </div>

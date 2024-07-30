@@ -1,13 +1,20 @@
 {% extends "logging_template.html" %}
     {% block content %}
         {% if current_user.is_authenticated and current_user.usuario != 'anonimo' %}
+            <h1>Detalles del libro</h1>
             <div class="container_libro">
-                <div class="libro_imagen"></div>
-                <div class="libro_titulo"></div>
-                <div class="libro_autor"></div>
-                <div class="libro_genero"></div>
-                <div class="libro_precio"></div>
-                <div class="libro_cantidad"></div>
+                {% if libro.imagen_url %}
+                <div>
+                    <strong>Imagen:</strong><br>
+                    <img src="{{ libro.imagen_url }}" alt="Imagen del Libro" style="max-width: 150px; height: auto;">
+                </div>
+                {% else %}
+                    <p>No hay imagen disponible.</p>
+                {% endif %}
+                <p>
+                    <a href="{{ url_for('routes.index') }}"><img src="{{ url_for('static', filename='img/home.png') }}" alt="Inicio" width="20" height="20"></a>
+                    <a href="{{ url_for('routes.inicio_libro', id=libro.id) }}">Libros</a>
+                </p>
             </div>
         {% endif %}
     {% endblock %}

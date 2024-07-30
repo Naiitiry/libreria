@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField,  FloatField, IntegerField, SelectField, RadioField, PasswordField, BooleanField
+from wtforms import StringField, SubmitField,  FloatField, IntegerField, SelectField, RadioField, PasswordField, BooleanField, FileField
 from wtforms.validators import DataRequired, Email, EqualTo
 from .models import Autor
 
@@ -10,6 +10,7 @@ class LibroForm(FlaskForm):
     genero = StringField('Género',validators=[DataRequired()])
     precio = FloatField('Precio',validators=[DataRequired()])
     cantidad = IntegerField('Cantidad',validators=[DataRequired()])
+    imagen = FileField('Imagen')
     autor_id = SelectField('Autor',coerce=int,validators=[DataRequired()])
     enviar = SubmitField('Guardar')
 

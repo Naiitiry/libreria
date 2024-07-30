@@ -3,10 +3,16 @@
 {% block content %}
 {% if current_user.is_authenticated and current_user.usuario != 'anonimo' %}
 <div class="container_autores">
+    <h2>Autores</h2>
     <div class="container_autores_lista">
         <ul>
             {% for autor in autor_paginacion.items %}
-                <li><a href="{{ url_for('routes.detalle_autor', id=autor.id) }}">{{ autor.nombre }}</a></li>
+                <div class="container_autores_item">
+                    <img src="{{ url_for('static', filename='photos/edgar_poe.jfif') }}" alt="iamgen">
+                    <li><a href="{{ url_for('routes.detalle_autor', id=autor.id) }}">{{ autor.nombre }} {{ autor.apellido }}</a></li>
+                    <a href="{{ url_for('routes.editar_autor', id=autor.id)}}"><img src="{{ url_for('static', filename='img/edit.png') }}" alt="Editar" width="20" height="20"></a>
+                    <a href="{{url_for('routes.eliminar_autor', id=autor.id)}}"><img src="{{ url_for('static', filename='img/delete.png')}}" alt="Eliminar" width="20" height="20"></a>
+                </div>
             {% endfor %}
         </ul>
     </div>
@@ -20,7 +26,7 @@
         {% endif %}
     </div>
     <div class="container_autores_inicio">
-        <p>Volver al <a href="{{ url_for('routes.index') }}"><b>Inicio</b></a></p>
+        <p>Volver al <a href="{{ url_for('routes.index') }}"><img src="{{ url_for('static', filename='img/home.png') }}" alt="inicio" width="20" height="20"></a></p>
     </div>
 </div>
     {% endif %}

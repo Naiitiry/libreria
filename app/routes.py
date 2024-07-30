@@ -1,7 +1,10 @@
-from flask import render_template, redirect, url_for, flash, Blueprint,request
+from flask import render_template, redirect, url_for, flash, Blueprint,request,current_app
 from flask_login import login_required, current_user, login_user, logout_user
 from .forms import LibroForm, AutorForm, SearchForm,LoginForm, RegisterForm
 from .models import Libro,Autor, db, AnonymousUser,User
+from werkzeug.utils import secure_filename
+import os
+
 
 routes = Blueprint('routes', __name__)
 
@@ -116,6 +119,16 @@ def nuevo_libro():
             libro.precio = libroForm.precio.data
             libro.cantidad = libroForm.cantidad.data
             libro.autor_id = libroForm.autor_id.data
+            # Control de subida de imagen
+            if libroForm.imagen.data:
+                if isinstance(libroForm.imagen.data,str):
+                    # No se seleccionó ninguna imagen
+                    pass
+                else:
+                    filename=secure_filename(libroForm.imagen.data.filename)
+                    filepath=os.path.join(current_app.config['UPLOAD_FOLDER'],filename)
+                    libroForm.imagen.data.save(filepath)
+                    libro.imagen_url = url_for('static',filename=f'uploads/{filename}', _external=True)
             db.session.add(libro)
             db.session.commit()
             flash('Libro guardado exitosamente!','success')
@@ -132,23 +145,40 @@ def detalle_libro(id):
     libro = Libro.query.get_or_404(id)
     return render_template('detalle_libro.html',libro=libro)
 
-@routes.route('/editar_libro/<int:id>',methods=['PUT'])
+@routes.route('/editar_libro/<int:id>',methods=['GET','POST'])
 @login_required
 def editar_libro(id):
     libro = Libro.query.get_or_404(id)
     libroForm = LibroForm(obj=libro)
-    if current_user.is_authenticated and current_user.usuario != 'anonimo':
+    if current_user.is_authenticated and current_user.usuario != 'anonimo' and request.method == 'POST':
         if libroForm.validate_on_submit():
             libro.titulo = libroForm.titulo.data
             libro.genero = libroForm.genero.data
             libro.precio = libroForm.precio.data
             libro.cantidad = libroForm.cantidad.data
             libro.autor_id = libroForm.autor_id.data
-            db.session.merge(libro)
+
+            # Manejar la subida del archivo
+            if libroForm.imagen.data:
+                if isinstance(libroForm.imagen.data, str):
+                    # No se seleccionó una nueva imagen
+                    pass
+                else:
+                    # Se seleccionó una nueva imagen
+                    filename = secure_filename(libroForm.imagen.data.filename)
+                    filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
+                    libroForm.imagen.data.save(filepath)
+                    libro.imagen_url = url_for('static', filename=f'uploads/{filename}', _external=True)
+
             db.session.commit()
-            flash('Libro actualizado exitosamente!','success')
-            return redirect(url_for('routes.inicio_libros'))
-    return render_template('nuevo_libro.html',libroform=libroForm)
+            flash('Libro actualizado exitosamente!', 'success')
+            return redirect(url_for('routes.inicio_libro'))
+        else:
+            for field, errors in libroForm.errors.items():
+                if errors:
+                    for error in errors:
+                        flash(f"Error en {field}: {error}", 'danger')
+    return render_template('editar_libro.html', libroform=libroForm, libro=libro)
 
 @routes.route('/eliminar_libro/<int:id>',methods=['GET','POST'])
 @login_required

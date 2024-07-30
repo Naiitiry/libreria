@@ -46,6 +46,9 @@
                 {% endif %}
             </div>
             <div class="form-group mb-3">
+                {{ libroform.imagen(size=40, placeholder = 'Imagen', class="form-control") }}
+            </div>
+            <div class="form-group mb-3">
                 {{ libroform.enviar(class="form-control")}}
             </div>
         </form>

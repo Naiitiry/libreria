@@ -2,13 +2,20 @@
 
     {% block content %}
         {% if current_user.is_authenticated %}
+        <div class="container_libros">
             <h2>Libros</h2>
-            <ul>
-                {% for libro in libros_paginacion.items %}
-                    <li><a href="{{ url_for('routes.detalle_libro', id=libro.id) }}">{{ libro.titulo }}</a></li>
-                {% endfor %}
-            </ul>
-            <div>
+            <div class="container_libros_lista">
+                <ul>
+                    {% for libro in libros_paginacion.items %}
+                    <div>
+                        <li><a href="{{ url_for('routes.detalle_libro', id=libro.id) }}">{{ libro.titulo }}</a></li>
+                        <a href="{{ url_for('routes.editar_libro', id=libro.id)}}"><img src="{{ url_for('static', filename='img/edit.png') }}" alt="Editar" width="20" height="20"></a>
+                        <a href="{{url_for('routes.eliminar_libro', id=libro.id)}}"><img src="{{ url_for('static', filename='img/delete.png')}}" alt="Eliminar" width="20" height="20"></a>
+                    </div>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="container_libros_paginacion">
                 {% if libros_paginacion.has_prev %}
                     <a href="{{ url_for('routes.libros', page=libros_paginacion.prev_num) }}">Anterior</a>
                 {% endif %}
@@ -20,5 +27,6 @@
             <div>
                 <p>Volver al <a href="{{ url_for('routes.index') }}"><b>Inicio</b></a></p>
             </div>
+        </div>
             {% endif %}
     {% endblock %}
