@@ -22,6 +22,7 @@ class AutorForm(FlaskForm):
     nombre = StringField('Nombre',validators=[DataRequired()])
     apellido = StringField('Apellido',validators=[DataRequired()])
     descripcion = StringField('Descripción')
+    imagen_autor = FileField('Imagen')
     enviar = SubmitField('Guardar')
 
 # BUSQUEDA EN EL INDEX

@@ -157,7 +157,6 @@ def editar_libro(id):
             libro.precio = libroForm.precio.data
             libro.cantidad = libroForm.cantidad.data
             libro.autor_id = libroForm.autor_id.data
-
             # Manejar la subida del archivo
             if libroForm.imagen.data:
                 if isinstance(libroForm.imagen.data, str):
@@ -169,7 +168,6 @@ def editar_libro(id):
                     filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
                     libroForm.imagen.data.save(filepath)
                     libro.imagen_url = url_for('static', filename=f'uploads/{filename}', _external=True)
-
             db.session.commit()
             flash('Libro actualizado exitosamente!', 'success')
             return redirect(url_for('routes.inicio_libro'))
@@ -210,6 +208,17 @@ def nuevo_autor():
         if autorForm.validate_on_submit():
             autor.nombre = autorForm.nombre.data
             autor.apellido = autorForm.apellido.data
+            autor.descripcion = autorForm.descripcion.data
+            # Control de subida de imagen
+            if autorForm.imagen_autor.data:
+                if isinstance(autorForm.imagen_autor.data,str):
+                    # No se seleccionó ninguna imagen
+                    pass
+                else:
+                    filename=secure_filename(autorForm.imagen_autor.data.filename)
+                    filepath=os.path.join(current_app.config['UPLOAD_FOLDER_PHOTOS'],filename)
+                    autorForm.imagen_autor.data.save(filepath)
+                    autor.imagen_autor = url_for('static',filename=f'photos/{filename}', _external=True)
             db.session.add(autor)
             db.session.commit()
             flash('Autor guardado exitosamente!','success')
@@ -229,11 +238,24 @@ def editar_autor(id):
     autorForm = AutorForm(obj=autor)
     if current_user.is_authenticated and current_user.usuario != 'anonimo' and request.method == 'POST':
         if autorForm.validate_on_submit():
-            autorForm.populate_obj(autor)
+            autor.nombre = autorForm.nombre.data
+            autor.apellido = autorForm.apellido.data
+            autor.descripcion = autorForm.descripcion.data
+            # Manejar la subida del archivo
+            if autorForm.imagen_autor.data:
+                if isinstance(autorForm.imagen_autor.data, str):
+                    # No se seleccionó una nueva imagen
+                    pass
+                else:
+                    # Se seleccionó una nueva imagen
+                    filename = secure_filename(autorForm.imagen_autor.data.filename)
+                    filepath = os.path.join(current_app.config['UPLOAD_FOLDER_PHOTOS'], filename)
+                    autorForm.imagen_autor.data.save(filepath)
+                    autor.imagen_autor = url_for('static', filename=f'photos/{filename}', _external=True)
             db.session.commit()
             flash('Autor actualizado exitosamente!', 'success')
             return redirect(url_for('routes.inicio_autor'))
-    return render_template('editar_autor.html', autorform=autorForm)
+    return render_template('editar_autor.html', autorform=autorForm, autor=autor)
 
 @routes.route('/eliminar_autor/<int:id>',methods=['GET','POST'])
 @login_required

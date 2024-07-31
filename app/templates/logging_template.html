@@ -13,11 +13,14 @@
     <title>{% block title %}La Librería{% endblock %}</title>
 </head>
 <body>
-    <main class="container_logging">
-        {% block content %}{% endblock %}
-    </main>
-    <footer>
-        <p>&copy; 2024 La Librería 7777</p>
-    </footer>
+    <div class="container_logging">
+        <main>
+            {% block content %}{% endblock %}
+        </main>
+        <footer>
+            <p>&copy; 2024 La Librería 7777</p>
+            <p>Desarrollador: Roman Danchuk</p>
+        </footer>
+    </div>
 </body>
 </html>

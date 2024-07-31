@@ -1,17 +1,33 @@
 {% extends "logging_template.html" %}
     {% block content %}
         {% if current_user.is_authenticated and current_user.usuario != 'anonimo' %}
-            <h1>Detalles del autor</h1>
-            <div class="container_autor">
-                <div class="autor_imagen">imagen</div>
-                <div class="autor_nombre">{{ autor_detalle.nombre }}</div>
-                <div class="autor_apelido">{{ autor_detalle.apellido }}</div>
-                <div class="autor_descripcion">{{ autor_detalle.descripcion }}</div>
-                <div class="autor_libros">libros</div>
+        <div class="container_detalle_autor">
+            <h1>{% if autor_detalle %}
+                {{ autor_detalle.nombre }} {{ autor_detalle.apellido }}
+                {% endif %}
+            </h1>
+            <div class="autor">
+                {% if autor_detalle.imagen_autor %}
+                <div class="autor_imagen">
+                    <img src="{{ autor_detalle.imagen_autor }}" alt="Imagen del Autor">
+                </div>
+                {% else %}
+                    <p>No hay imagen disponible.</p>
+                {% endif %}
+                <div class="autor_detalle">
+                    {% if autor_detalle %}
+                    <div>
+                        <p><b>Descripción:</b> {{ autor_detalle.descripcion }}</p>
+                    </div>
+                    {% else %}
+                        <p>No hay datos</p>
+                    {% endif %}
+                </div>
             </div>
-            <div>
-                <a href="{{ url_for('routes.inicio_autor')}}">Volver a la lista de autores</a>
-                <a href="{{ url_for('routes.index')}}">Volver al inicio</a>
-            </div>
+        </div>
+        <div class="botones">
+            <a href="{{ url_for('routes.inicio_autor')}}">Volver a la lista de autores</a>
+            <a href="{{ url_for('routes.index')}}">Volver al inicio</a>
+        </div>
         {% endif %}
     {% endblock %}

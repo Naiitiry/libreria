@@ -32,6 +32,7 @@ class Autor(db.Model):
     nombre = db.Column(db.String(50),nullable=False)
     apellido =  db.Column(db.String(50),nullable=False)
     descripcion = db.Column(db.Text,default='Sin descripción')
+    imagen_autor = db.Column(db.String,default='Sin imagen')
     libros = db.relationship('Libro',backref='autor',lazy=True)
 
 # Clase Libro
@@ -41,5 +42,5 @@ class Libro(db.Model):
     genero = db.Column(db.String(100),nullable=False)
     precio = db.Column(db.Float,default=0)
     cantidad = db.Column(db.Integer,default=0)
-    imagen_url = db.Column(db.String)
+    imagen_url = db.Column(db.String,default='Sin imagen')
     autor_id = db.Column(db.Integer, db.ForeignKey('autor.id'), nullable=False)

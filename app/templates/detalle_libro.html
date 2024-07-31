@@ -2,7 +2,7 @@
     {% block content %}
         {% if current_user.is_authenticated and current_user.usuario != 'anonimo' %}
             <h1>Detalles del libro</h1>
-            <div class="container_libro">
+            <div class="container_detalle_libro">
                 {% if libro.imagen_url %}
                 <div>
                     <strong>Imagen:</strong><br>

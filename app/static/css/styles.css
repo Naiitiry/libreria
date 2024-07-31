@@ -17,23 +17,21 @@
         text-decoration-color: #FF5733;
     }
 }
-
-html, body {
+*{
+    box-sizing: border-box;
+}
+body{
     margin: 0;
-    padding: 0;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    background-color: #5caccca9;
 }
 .container_base_template{
     display: flex;
-    height: 100vh;
+    height: 100dvh;
     justify-content: center;
     align-items: center;
 }
 footer{
     width: 100%;
+    display: grid;
     color: #d4c26b;
     background-color: #0079d9;
     text-align: center;
@@ -103,14 +101,12 @@ footer{
     }
 }
 .container_logging{
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+    height: 100dvh;
+    display: grid;
+    align-content: center;
+    grid-template-rows: 1fr auto;
     background: -webkit-linear-gradient(102deg, #1a333a,#506368);
     background: linear-gradient(102deg, #1a333a,#506368);
-    overflow: auto;
     ul,li{
         list-style: none;
     }
@@ -160,10 +156,17 @@ footer{
             gap: 40px 60px;
         }
         .container_autores_item{
-            background-color: #0079d9;
+            text-align: center;
+            border-radius: 20px;
+            padding: 10px;
+            img{
+                border-radius: 50%;
+            }
         }
-        .container_autores_item img{
-            height: 150px;
+        .container_autores_paginacion{
+            background-color: grey;
+            padding: 10px;
+            border-radius: 30px;
         }
     }
     .container_libros{
@@ -182,5 +185,25 @@ footer{
             border-radius: 30px;
         }
     }
-    
+    .container_detalle_autor{
+        max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    }
+    .autor{
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+    }
+    .autor>*:first-child{
+        align-self: stretch;
+    }
+    .autor_imagen img{
+        border-radius: 50%;
+    }
+    .autor .autor_detalle{
+        align-self: flex-start;
+    }
 }
