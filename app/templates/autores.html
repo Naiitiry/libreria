@@ -3,7 +3,7 @@
 {% block content %}
 {% if current_user.is_authenticated and current_user.usuario != 'anonimo' %}
 <div class="container_autores">
-    <h2>Autores</h2>
+    <h2 class="container_autores_titulo">Autores</h2>
     <div class="container_autores_lista">
         <ul>
             {% for autor in autor_paginacion.items %}

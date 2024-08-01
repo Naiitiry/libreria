@@ -3,12 +3,15 @@
     {% block content %}
         {% if current_user.is_authenticated %}
         <div class="container_libros">
-            <h2>Libros</h2>
+            <h2 class="container_libros_titulo">Libros</h2>
             <div class="container_libros_lista">
                 <ul>
                     {% for libro in libros_paginacion.items %}
                     <div>
-                        <li><a href="{{ url_for('routes.detalle_libro', id=libro.id) }}">{{ libro.titulo }}</a></li>
+                        <li>
+                            <img src="{{ libro.imagen_url }}" alt="{{ libro.titulo }}" height="250">
+                            <a href="{{ url_for('routes.detalle_libro', id=libro.id) }}">{{ libro.titulo }}</a>
+                        </li>
                         <a href="{{ url_for('routes.editar_libro', id=libro.id)}}"><img src="{{ url_for('static', filename='img/edit.png') }}" alt="Editar" width="20" height="20"></a>
                         <a href="{{url_for('routes.eliminar_libro', id=libro.id)}}"><img src="{{ url_for('static', filename='img/delete.png')}}" alt="Eliminar" width="20" height="20"></a>
                     </div>
