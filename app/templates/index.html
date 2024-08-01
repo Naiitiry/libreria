@@ -28,6 +28,7 @@
                     <ul>
                         {% for autor in autores %}
                             <li>
+                                <img src="{{ autor.imagen_autor }}" alt="{{ autor.nombre }}" class="imagen_autor_index">
                                 <a href="{{ url_for('routes.detalle_autor', id=autor.id) }}">{{ autor.nombre }} {{ autor.apellido }}</a>
                             </li>
                         {% endfor %}

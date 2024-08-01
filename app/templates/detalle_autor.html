@@ -1,15 +1,15 @@
 {% extends "logging_template.html" %}
     {% block content %}
         {% if current_user.is_authenticated and current_user.usuario != 'anonimo' %}
+        <h1>{% if autor_detalle %}
+            {{ autor_detalle.nombre }} {{ autor_detalle.apellido }}
+            {% endif %}
+        </h1>
         <div class="container_detalle_autor">
-            <h1>{% if autor_detalle %}
-                {{ autor_detalle.nombre }} {{ autor_detalle.apellido }}
-                {% endif %}
-            </h1>
             <div class="autor">
                 {% if autor_detalle.imagen_autor %}
                 <div class="autor_imagen">
-                    <img src="{{ autor_detalle.imagen_autor }}" alt="Imagen del Autor">
+                    <img src="{{ autor_detalle.imagen_autor }}" alt="Imagen del Autor" height="200">
                 </div>
                 {% else %}
                     <p>No hay imagen disponible.</p>
@@ -17,7 +17,7 @@
                 <div class="autor_detalle">
                     {% if autor_detalle %}
                     <div>
-                        <p><b>Descripción:</b> {{ autor_detalle.descripcion }}</p>
+                        <p>{{ autor_detalle.descripcion }}</p>
                     </div>
                     {% else %}
                         <p>No hay datos</p>

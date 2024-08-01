@@ -17,11 +17,20 @@
         text-decoration-color: #FF5733;
     }
 }
+
+/* MEDIA QUERYS */
+
+
+
+/* CONTENT */
 *{
     box-sizing: border-box;
 }
 body{
+    height: 100%;
     margin: 0;
+    display: flex;
+    flex-direction: column;
 }
 .container_base_template{
     display: flex;
@@ -30,11 +39,12 @@ body{
     align-items: center;
 }
 footer{
+    position: relative;
     width: 100%;
-    display: grid;
     color: #d4c26b;
     background-color: #0079d9;
     text-align: center;
+    padding: 10px;
 }
 .container_bienvenida ul li{
     list-style-type: none;
@@ -53,7 +63,7 @@ footer{
 .container_form{
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 100dvh;
     align-items: center;
     justify-content: center;
     .container_login{
@@ -101,18 +111,30 @@ footer{
     }
 }
 .container_logging{
-    height: 100dvh;
-    display: grid;
-    align-content: center;
-    grid-template-rows: 1fr auto;
-    background: -webkit-linear-gradient(102deg, #1a333a,#506368);
-    background: linear-gradient(102deg, #1a333a,#506368);
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
+    h1{
+        color: #00b8ff;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        font-size: 70px;
+        text-align: center;
+    }
     ul,li{
         list-style: none;
     }
     a{
         text-decoration: none;
         color: #fff;
+    }
+    main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center; /* O align-items: center; según tus necesidades */
+        background: -webkit-linear-gradient(102deg, #1a333a, #506368);
+        background: linear-gradient(102deg, #1a333a, #506368);
+        overflow: auto;
     }
     a:hover{
         transition: 0.6s;
@@ -142,7 +164,13 @@ footer{
     .container_index_autores ul{
         display: grid;
         grid-template-columns: repeat(5, auto);
-        gap: 20px;
+    }
+    .container_index_autores li{
+        display: flex;
+        flex-direction: column;
+    }
+    .imagen_autor_index{
+        width: 100px;
     }
     .container_autores{
         padding: 10px;
@@ -162,6 +190,9 @@ footer{
             img{
                 border-radius: 50%;
             }
+        }
+        .container_autores_item_img{
+            max-width: 100%;
         }
         .container_autores_paginacion{
             background-color: grey;
@@ -186,7 +217,7 @@ footer{
         }
     }
     .container_detalle_autor{
-        max-width: 1200px;
+    max-width: 1200px;
     margin: 20px auto;
     padding: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -204,6 +235,20 @@ footer{
         border-radius: 50%;
     }
     .autor .autor_detalle{
-        align-self: flex-start;
+        flex: 1;
+    }
+    .autor_detalle p{
+        text-align: center;
+        color: #e2e2e2;
+    }
+    .autor_imagen{
+        
+    }
+    .botones{
+        display: flex;
+        gap: 10px;
+        align-content: space-around;
+        justify-content: space-around;
+        padding: 10px;
     }
 }

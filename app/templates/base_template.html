@@ -12,22 +12,24 @@
     <title>{% block title %}Bienvenido{% endblock %}</title>
 </head>
 <body>
-    <main class="container_base_template">
-        {% if not current_user.is_authenticated %}
-        <div class="container_bienvenida">
-            <h1>Bienvenido a la Librería</h1>
-            <ul>
-                <li><a href="{{ url_for('routes.inicio') }}">Inicio</a></li>
-                <li><a href="{{ url_for('routes.login') }}">Iniciar Sesión</a></li>
-                <li><a href="{{ url_for('routes.register') }}">Registrarse</a></li>
-                <li><a href="{{ url_for('routes.anonymous') }}">Iniciar como Usuario Anónimo</a></li>
-            </ul>      
-        </div>
-        {% endif %}
-        {% block content %}{% endblock %}
-    </main>
-    <footer>
-        <p>&copy; 2024 Librería</p>
-    </footer>
+    <div class="container_base_template">
+        <main>
+            {% if not current_user.is_authenticated %}
+            <div class="container_bienvenida">
+                <h1>Bienvenido a la Librería</h1>
+                <ul>
+                    <li><a href="{{ url_for('routes.inicio') }}">Inicio</a></li>
+                    <li><a href="{{ url_for('routes.login') }}">Iniciar Sesión</a></li>
+                    <li><a href="{{ url_for('routes.register') }}">Registrarse</a></li>
+                    <li><a href="{{ url_for('routes.anonymous') }}">Iniciar como Usuario Anónimo</a></li>
+                </ul>      
+            </div>
+            {% endif %}
+            {% block content %}{% endblock %}
+        </main>
+        <footer>
+            <p>&copy; 2024 Librería</p>
+        </footer>
+    /div>
 </body>
 </html>
