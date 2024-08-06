@@ -43,4 +43,5 @@ class Libro(db.Model):
     precio = db.Column(db.Float,default=0)
     cantidad = db.Column(db.Integer,default=0)
     imagen_url = db.Column(db.String,default='Sin imagen')
+    descripcion = db.Column(db.Text,default='Sin descripción')
     autor_id = db.Column(db.Integer, db.ForeignKey('autor.id'), nullable=False)

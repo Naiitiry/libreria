@@ -118,6 +118,7 @@ def nuevo_libro():
             libro.genero = libroForm.genero.data
             libro.precio = libroForm.precio.data
             libro.cantidad = libroForm.cantidad.data
+            libro.descripcion = libroForm.descripcion.data
             libro.autor_id = libroForm.autor_id.data
             # Control de subida de imagen
             if libroForm.imagen.data:
@@ -156,6 +157,7 @@ def editar_libro(id):
             libro.genero = libroForm.genero.data
             libro.precio = libroForm.precio.data
             libro.cantidad = libroForm.cantidad.data
+            libro.descripcion = libroForm.descripcion.data
             libro.autor_id = libroForm.autor_id.data
             # Manejar la subida del archivo
             if libroForm.imagen.data:

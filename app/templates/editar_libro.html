@@ -41,11 +41,14 @@
                 {% endfor %}
             </div>
             <div class="form-group mb-3">
+                {{ libroform.descripcion(size=40, placeholder = 'Descripción', class="form-control") }}
+            </div>
+            <div class="form-group mb-3">
                 {{ libroform.enviar(class="form-control")}}
             </div>
         </form>
-        <p>Volver al <a href="{{ url_for('routes.index') }}"><b>Inicio</b></a></p>
-        <p>Volver a <a href="{{ url_for('routes.inicio_libro') }}"><b>Libros</b></a></p>
+            <p>Volver al <a href="{{ url_for('routes.index') }}"><b>Inicio</b></a></p>
+            <p>Volver a <a href="{{ url_for('routes.inicio_libro') }}"><b>Libros</b></a></p>
         {% else %}
             <p>
                 Acceso denegado, para poder agregar un nuevo libro debe estar correctamente 

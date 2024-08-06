@@ -3,18 +3,24 @@
         {% if current_user.is_authenticated and current_user.usuario != 'anonimo' %}
             <h1>Detalles del libro</h1>
             <div class="container_detalle_libro">
-                {% if libro.imagen_url %}
-                <div>
-                    <strong>Imagen:</strong><br>
-                    <img src="{{ libro.imagen_url }}" alt="Imagen del Libro" style="max-width: 150px; height: auto;">
+                <div class="libro">
+                    {% if libro.imagen_url %}
+                    <div class="libro_imagen">
+                        <img src="{{ libro.imagen_url }}" alt="Imagen del Libro" style="max-width: 150px; height: auto;">
+                    </div>
+                    {% else %}
+                        <p>No hay imagen disponible.</p>
+                    {% endif %}
+                    <div class="libro_descripcion">
+                        {% if libro %}
+                            <p>{{ libro.descripcion }}</p>
+                        {% endif %}
+                    </div>
                 </div>
-                {% else %}
-                    <p>No hay imagen disponible.</p>
-                {% endif %}
-                <p>
-                    <a href="{{ url_for('routes.index') }}"><img src="{{ url_for('static', filename='img/home.png') }}" alt="Inicio" width="20" height="20"></a>
-                    <a href="{{ url_for('routes.inicio_libro', id=libro.id) }}">Libros</a>
-                </p>
+            </div>
+            <div class="botones">
+                <a href="{{ url_for('routes.index') }}"><img src="{{ url_for('static', filename='img/home.png') }}" alt="Inicio" width="20" height="20"></a>
+                <a href="{{ url_for('routes.inicio_libro', id=libro.id) }}">Libros</a>
             </div>
         {% endif %}
     {% endblock %}

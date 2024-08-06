@@ -38,7 +38,6 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
 }
 main {
     flex: 1;
@@ -264,5 +263,23 @@ footer{
         align-content: space-around;
         justify-content: space-around;
         padding: 10px;
+    }
+    .container_detalle_libro{
+        max-width: 1200px;
+        margin: 20px auto;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        border-radius: 8px;
+    }
+    .libro{
+        display: flex;
+        align-items: flex-start;
+        gap: 20px;
+    }
+    .libro>*:first-child{
+        align-self: stretch;
+    }
+    .libro .libro_detalle{
+        flex: 1;
     }
 }

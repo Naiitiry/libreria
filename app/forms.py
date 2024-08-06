@@ -12,6 +12,7 @@ class LibroForm(FlaskForm):
     cantidad = IntegerField('Cantidad',validators=[DataRequired()])
     imagen = FileField('Imagen')
     autor_id = SelectField('Autor',coerce=int,validators=[DataRequired()])
+    descripcion = StringField('Descripción')
     enviar = SubmitField('Guardar')
 
     def __init__(self, *args, **kwargs):
