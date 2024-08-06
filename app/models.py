@@ -23,8 +23,10 @@ class User(db.Model,UserMixin):
 
 # Clase Anónima
 class AnonymousUser(AnonymousUserMixin):
-    def __init__(self):
-        self.usuario = 'anonimo'
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(150), nullable=False, unique=True, default='anonimo')
+    password = db.Column(db.String(200), nullable=False, default=generate_password_hash('anonimo'))
+    email = db.Column(db.String(150), nullable=False, unique=True, default='anonimo@example.com')
 
 # Clase Autor
 class Autor(db.Model):
