@@ -29,14 +29,3 @@ def create_app():
     app.register_blueprint(main_blueprint)
 
     return app
-
-def anonimo_data():
-    from .models import User
-    usuario1 = User(usuario='anonimo',password_hash='',nombre='anonimo',apellido='anonimo',email='anonimo@example.com',is_admin=False)
-    db.session.add(usuario1)
-    db.session.commit()
-
-if __name__ == '__main__':
-    app = create_app()
-    with app.app_context():
-        anonimo_data()

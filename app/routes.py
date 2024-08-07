@@ -71,13 +71,22 @@ def logout():
 @routes.route('/anonimo')
 def anonymous():
     anonymous_user = User.query.filter_by(usuario='anonimo').first()
-    if anonymous_user:
-        login_user(anonymous_user)
-        flash('Has ingresado como usuario anónimo.','info')
-        return redirect(url_for('routes.index'))
-    else:
-        flash('No se encuentra el usuario anónimo, por favor contacte con el administrador','warning')
-        return redirect(url_for('routes.inicio'))
+    if not anonymous_user:
+        anon_user = User(
+            nombre = 'anonimo',
+            apellido = 'anonimo',
+            usuario = 'anonimo',
+            email = 'anonimo@example.com',
+            password_hash = '',
+            is_admin = False
+        )
+        db.session.add(anon_user)
+        db.session.commit()
+        anonymous_user=anon_user
+        flash('Usuario anónimo creado satisfactoriamente.','info')
+    login_user(anonymous_user)
+    flash('Has ingresado como usuario anónimo!','success')
+    return redirect(url_for('routes.index'))
 
 # ******************************************************************
 # *************************** INDEX ********************************
