@@ -13,7 +13,10 @@
                 <div>
                     <ul>
                         {% for libro in libros %}
-                            <li><a href="{{ url_for('routes.detalle_libro', id=libro.id) }}">{{ libro.titulo }}</a></li>
+                            <li>
+                                <img src="{{ libro.imagen_url }}" alt="{{ libro.titulo}}" height="250">
+                                <a href="{{ url_for('routes.detalle_libro', id=libro.id) }}">{{ libro.titulo }}</a>
+                            </li>
                         {% endfor %}
                     </ul>
                 </div>
@@ -28,7 +31,7 @@
                     <ul>
                         {% for autor in autores %}
                             <li>
-                                <img src="{{ autor.imagen_autor }}" alt="{{ autor.nombre }}" class="imagen_autor_index">
+                                <img src="{{ autor.imagen_autor }}" alt="{{ autor.nombre }}" height="150"  class="imagen_autor_index">
                                 <a href="{{ url_for('routes.detalle_autor', id=autor.id) }}">{{ autor.nombre }} {{ autor.apellido }}</a>
                             </li>
                         {% endfor %}

@@ -4,6 +4,7 @@ from .forms import LibroForm, AutorForm, SearchForm,LoginForm, RegisterForm
 from .models import Libro,Autor, db, AnonymousUser,User
 from werkzeug.utils import secure_filename
 import os
+from .cloudinary_util import upload_image_cloudinary, configure_cloudinary
 
 
 routes = Blueprint('routes', __name__)
@@ -92,7 +93,7 @@ def anonymous():
 # *************************** INDEX ********************************
 # ******************************************************************
 
-@routes.route('/')
+@routes.route('/', methods=['GET'])
 @login_required
 def index():
     # En pantalla me mostraría los 10 primeros libros y los 10 primeros autores
@@ -121,7 +122,7 @@ def inicio_libro():
 def nuevo_libro():
     libro = Libro()
     libroForm = LibroForm(obj=libro)
-    if request.method == 'POST':
+    if request.method == 'POST' and current_user.is_authenticated and current_user.usuario != 'anonimo':
         if libroForm.validate_on_submit():
             libro.titulo = libroForm.titulo.data
             libro.genero = libroForm.genero.data
@@ -130,15 +131,18 @@ def nuevo_libro():
             libro.descripcion = libroForm.descripcion.data
             libro.autor_id = libroForm.autor_id.data
             # Control de subida de imagen
+            # Configuración de Cloudinary
+
+            configure_cloudinary()
+
+            # Subir imagen
             if libroForm.imagen.data:
-                if isinstance(libroForm.imagen.data,str):
-                    # No se seleccionó ninguna imagen
-                    pass
+                image_url = upload_image_cloudinary(libroForm.imagen.data)
+                if image_url:
+                    libro.imagen_url = image_url
                 else:
-                    filename=secure_filename(libroForm.imagen.data.filename)
-                    filepath=os.path.join(current_app.config['UPLOAD_FOLDER'],filename)
-                    libroForm.imagen.data.save(filepath)
-                    libro.imagen_url = url_for('static',filename=f'uploads/{filename}', _external=True)
+                    flash('Error uploading image', 'danger')
+                    return redirect(request.url)
             db.session.add(libro)
             db.session.commit()
             flash('Libro guardado exitosamente!','success')
@@ -168,20 +172,20 @@ def editar_libro(id):
             libro.cantidad = libroForm.cantidad.data
             libro.descripcion = libroForm.descripcion.data
             libro.autor_id = libroForm.autor_id.data
-            # Manejar la subida del archivo
+            # Control de subida de imagen
+            # Configuración de Cloudinary
+            configure_cloudinary()
+            # Subir imagen
             if libroForm.imagen.data:
-                if isinstance(libroForm.imagen.data, str):
-                    # No se seleccionó una nueva imagen
-                    pass
+                image_url = upload_image_cloudinary(libroForm.imagen.data)
+                if image_url:
+                    libro.imagen_url = image_url
                 else:
-                    # Se seleccionó una nueva imagen
-                    filename = secure_filename(libroForm.imagen.data.filename)
-                    filepath = os.path.join(current_app.config['UPLOAD_FOLDER'], filename)
-                    libroForm.imagen.data.save(filepath)
-                    libro.imagen_url = url_for('static', filename=f'uploads/{filename}', _external=True)
+                    flash('Error uploading image', 'danger')
+                    return redirect(request.url)
             db.session.commit()
             flash('Libro actualizado exitosamente!', 'success')
-            return redirect(url_for('routes.inicio_libro'))
+            return redirect(url_for('routes.detalle_libro', id=libro.id))
         else:
             for field, errors in libroForm.errors.items():
                 if errors:
@@ -215,21 +219,21 @@ def inicio_autor():
 def nuevo_autor():
     autor = Autor()
     autorForm = AutorForm(obj=autor)
-    if current_user.is_authenticated and current_user.usuario != 'anonimo':
+    if current_user.is_authenticated and current_user.usuario != 'anonimo' and request.method == 'POST':
         if autorForm.validate_on_submit():
             autor.nombre = autorForm.nombre.data
             autor.apellido = autorForm.apellido.data
             autor.descripcion = autorForm.descripcion.data
+            # Configurar Cloudinary
+            configure_cloudinary()
             # Control de subida de imagen
             if autorForm.imagen_autor.data:
-                if isinstance(autorForm.imagen_autor.data,str):
-                    # No se seleccionó ninguna imagen
-                    pass
+                image_url = upload_image_cloudinary(autorForm.imagen_autor.data)
+                if image_url:
+                    autorForm.imagen_autor = image_url
                 else:
-                    filename=secure_filename(autorForm.imagen_autor.data.filename)
-                    filepath=os.path.join(current_app.config['UPLOAD_FOLDER_PHOTOS'],filename)
-                    autorForm.imagen_autor.data.save(filepath)
-                    autor.imagen_autor = url_for('static',filename=f'photos/{filename}', _external=True)
+                    flash('Error uploading image', 'danger')
+                    return redirect(request.url)
             db.session.add(autor)
             db.session.commit()
             flash('Autor guardado exitosamente!','success')
@@ -252,17 +256,16 @@ def editar_autor(id):
             autor.nombre = autorForm.nombre.data
             autor.apellido = autorForm.apellido.data
             autor.descripcion = autorForm.descripcion.data
-            # Manejar la subida del archivo
+            # Configurar Cloudinary
+            configure_cloudinary()
+            # Control de subida de imagen
             if autorForm.imagen_autor.data:
-                if isinstance(autorForm.imagen_autor.data, str):
-                    # No se seleccionó una nueva imagen
-                    pass
+                image_url = upload_image_cloudinary(autorForm.imagen_autor.data)
+                if image_url:
+                    autor.imagen_autor = image_url
                 else:
-                    # Se seleccionó una nueva imagen
-                    filename = secure_filename(autorForm.imagen_autor.data.filename)
-                    filepath = os.path.join(current_app.config['UPLOAD_FOLDER_PHOTOS'], filename)
-                    autorForm.imagen_autor.data.save(filepath)
-                    autor.imagen_autor = url_for('static', filename=f'photos/{filename}', _external=True)
+                    flash('Error uploading image', 'danger')
+                    return redirect(request.url)
             db.session.commit()
             flash('Autor actualizado exitosamente!', 'success')
             return redirect(url_for('routes.inicio_autor'))

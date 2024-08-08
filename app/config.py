@@ -6,5 +6,3 @@ class Configuration():
     SECRET_KEY = os.getenv('SECRET_KEY')
     SQLALCHEMY_DATABASE_URI = os.getenv('FULL_URI')
     SQLALCHEMY_TRACK_MODIFICATIN = False
-    UPLOAD_FOLDER = os.path.join(os.path.abspath(os.path.dirname(__file__)),'static/uploads')
-    UPLOAD_FOLDER_PHOTOS = os.path.join(os.path.abspath(os.path.dirname(__file__)),'static/photos')
